@@ -3,9 +3,9 @@ services:
     phpmyadmin:
         image: phpmyadmin/phpmyadmin
         links:
-            - mysql:mysql
+            - 'mysql:mysql'
         ports:
-            - 8080:80
+            - '8080:80'
         environment:
             #PMA_USER: "${DB_USERNAME}"
             #PMA_PASSWORD: "${DB_PASSWORD}"
@@ -104,7 +104,7 @@ services:
         networks:
             - sail
     selenium:
-        image: seleniarm/standalone-chromium
+        image: selenium/standalone-chrome
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         volumes:
