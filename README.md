@@ -9,7 +9,8 @@ TeamDevBattle
 THANK YOU TOYOPY!!（YABP→HTG移籍）
 
 
-## とよぴぃ
+## とよぴぃ 
+唐津の友人に子供の誕生祝いを持っていく
 
 ## こにたん
 
