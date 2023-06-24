@@ -7,8 +7,8 @@ services:
         ports:
             - '8080:80'
         environment:
-            PMA_USER: sail
-            PMA_PASSWORD: password
+            #PMA_USER: "${DB_USERNAME}"
+            #PMA_PASSWORD: "${DB_PASSWORD}"
             PMA_HOST: mysql
         networks:
             - sail
