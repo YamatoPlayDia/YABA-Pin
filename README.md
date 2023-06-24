@@ -7,6 +7,8 @@ TeamDevBattle
 こんにちは
 さようなら
 THANK YOU TOYOPY!!（YABP→HTG移籍）
+good morning!
+good night!
 
 
 ## とよぴぃ 
