@@ -3,7 +3,7 @@ TeamDevBattle
 
 
 ## Conflict
-ここをはちゃめちゃにみなさん書き換えてください。
+#0007ですが変更できてますかー？？？
 こんにちは
 さようなら
 THANK YOU TOYOPY!!（YABP→HTG移籍）
