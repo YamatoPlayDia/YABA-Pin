@@ -2,17 +2,17 @@
 TeamDevBattle
 
 
-# Conflict
+## Conflict
 ここをはちゃめちゃにみなさん書き換えてください。
 こんにちは
 さようなら
 THANK YOU TOYOPY!!（YABP→HTG移籍）
 
 
-# とよぴぃ
+## とよぴぃ
 
-# こにたん
+## こにたん
 
-# つばさ
+## つばさ
 
-# やまと
+## やまと
