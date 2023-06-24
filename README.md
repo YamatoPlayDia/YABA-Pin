@@ -4,14 +4,14 @@ TeamDevBattle
 
 ## Conflict
 #0007ですが変更できてますかー？？？
+じゅげむじゅげむ五号の擦り切れ
 こんにちは
 さようなら
-THANK YOU TOYOPY!!（YABP→HTG移籍）
+エンダーーーーーーーーーーーーーーーーーーーーー
 good morning!
 good night!
 
-
-## とよぴぃ 
+## とよぴぃ
 唐津の友人に子供の誕生祝いを持っていく
 
 ## こにたん
