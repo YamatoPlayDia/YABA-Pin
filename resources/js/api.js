@@ -1,34 +1,33 @@
-// api.js
-export function getProfiles() {
-    return fetch('/api/profiles').then(response => response.json());
+import axios from 'axios';
+import { handleError } from './functions.js';
+
+// CRUDの基本的な関数を定義
+export function getAll(endpoint) {
+    return axios.get(`/api/${endpoint}`)
+      .then(response => response.data)
+      .catch(handleError);
 }
 
-export function getProfile(id) {
-    return fetch(`/api/profiles/${id}`).then(response => response.json());
+export function getOne(endpoint, id) {
+    return axios.get(`/api/${endpoint}/${id}`)
+      .then(response => response.data)
+      .catch(handleError);
 }
 
-export function deleteProfile(id) {
-    return fetch(`/api/profiles/${id}`, {
-        method: 'DELETE'
-    }).then(response => response.json());
+export function create(endpoint, data) {
+    return axios.post(`/api/${endpoint}`, data)
+      .then(response => response.data)
+      .catch(handleError);
 }
 
-export function updateProfile(id, data) {
-    return fetch(`/api/profiles/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    }).then(response => response.json());
+export function update(endpoint, id, data) {
+    return axios.put(`/api/${endpoint}/${id}`, data)
+      .then(response => response.data)
+      .catch(handleError);
 }
 
-export function createProfile(data) {
-    return fetch('/api/profiles', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    }).then(response => response.json());
+export function remove(endpoint, id) {
+    return axios.delete(`/api/${endpoint}/${id}`)
+      .then(response => response.data)
+      .catch(handleError);
 }

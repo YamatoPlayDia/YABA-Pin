@@ -1,6 +1,6 @@
-import { getAll, remove } from './api.js';
+import { getProfiles, deleteProfile } from './api.js';
 
-getAll('profiles').then(profiles => {
+getProfiles().then(profiles => {
     let output = '';
     profiles.forEach(profile => {
         output += `<tr>`;
@@ -19,7 +19,7 @@ getAll('profiles').then(profiles => {
     // Delete button event listeners
     document.querySelectorAll('.delete').forEach(function(button) {
         button.addEventListener('click', function() {
-            remove('profiles', button.getAttribute('data-uid')).then(data => {
+            deleteProfile(button.getAttribute('data-uid')).then(data => {
                 console.log('Success:', data);
                 location.reload();
             });
