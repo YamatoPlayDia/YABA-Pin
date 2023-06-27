@@ -1,6 +1,8 @@
 【以前提案して方法について】
 Laravelでデータのやり取りをする→apiを通してjsファイルで受け取る
 →htmlファイルで読み込む（blade.phpとしておくが、そこでデータのやり取りを行わない）
+このあたり参考になるかも？
+https://zenn.dev/arafipro/books/jpstock-trade-api
 
 【Model】
 変更なし

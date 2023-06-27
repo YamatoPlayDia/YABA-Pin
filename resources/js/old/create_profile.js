@@ -1,4 +1,4 @@
-import { create } from './api.js';
+import { createProfile } from './api.js';
 
 document.getElementById('profileForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -15,7 +15,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
         phone: phone
     };
 
-    create('profiles', data).then(data => {
+    createProfile(data).then(data => {
         console.log('Success:', data);
         alert('Profile created successfully');
     });

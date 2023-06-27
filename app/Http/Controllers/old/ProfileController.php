@@ -3,26 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\ProfileRepository;
+use App\Models\Profile;
 
 class ProfileController extends Controller
 {
-    protected $repository;
-
-    public function __construct(ProfileRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
     public function index()
     {
-        $profiles = $this->repository->all();
+        $profiles = Profile::all();
         return response()->json($profiles);
     }
 
     public function show($id)
     {
-        $profile = $this->repository->find($id);
+        $profile = Profile::find($id);
 
         if ($profile) {
             return response()->json($profile);
@@ -33,19 +26,33 @@ class ProfileController extends Controller
 
     public function store(Request $request)
     {
-        $profile = $this->repository->create($request->all());
+        $profile = new Profile;
+        $profile->name = $request->name;
+        $profile->email = $request->email;
+        $profile->profile = $request->profile;
+        $profile->phone = $request->phone;
+        $profile->save();
+
         return response()->json($profile);
     }
 
     public function update(Request $request, $id)
     {
-        $this->repository->update($id, $request->all());
-        return response()->json($this->repository->find($id));
+        $profile = Profile::find($id);
+        $profile->name = $request->name;
+        $profile->email = $request->email;
+        $profile->profile = $request->profile;
+        $profile->phone = $request->phone;
+        $profile->save();
+
+        return response()->json($profile);
     }
 
     public function destroy($id)
     {
-        $this->repository->delete($id);
+        $profile = Profile::find($id);
+        $profile->delete();
+
         return response()->json('Profile deleted successfully');
     }
 }
