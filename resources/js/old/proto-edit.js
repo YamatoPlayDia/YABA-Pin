@@ -1,11 +1,10 @@
-// edit_profile.js
-import { getProfile, updateProfile } from './api.js';
+import { getOne, update } from '../api.js';
 
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 
 // Fetch profile data
-getProfile(id).then(profile => {
+getOne('profiles', id).then(profile => {
     document.getElementById('name').value = profile.name;
     document.getElementById('email').value = profile.email;
     document.getElementById('profile').value = profile.profile;
@@ -28,7 +27,7 @@ document.getElementById('profileForm').addEventListener('submit', function(event
         phone: phone
     };
 
-    updateProfile(id, data).then(data => {
+    update('profiles', id, data).then(data => {
         console.log('Success:', data);
         alert('Profile updated successfully');
     });

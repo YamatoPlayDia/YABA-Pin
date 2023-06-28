@@ -1,4 +1,4 @@
-import { getAll, remove } from './api.js';
+import { getAll, remove } from '../api.js';
 
 getAll('profiles').then(profiles => {
     let output = '';

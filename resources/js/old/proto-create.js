@@ -1,4 +1,4 @@
-import { create } from './api.js';
+import { create } from '../api.js';
 
 document.getElementById('profileForm').addEventListener('submit', function(event) {
     event.preventDefault();
