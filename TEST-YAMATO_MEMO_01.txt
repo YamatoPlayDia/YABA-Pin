@@ -1,0 +1,55 @@
+【以前提案して方法について】
+Laravelでデータのやり取りをする→apiを通してjsファイルで受け取る
+→htmlファイルで読み込む（blade.phpとしておくが、そこでデータのやり取りを行わない）
+このあたり参考になるかも？
+https://zenn.dev/arafipro/books/jpstock-trade-api
+
+【Model】
+変更なし
+
+【Controller】
+***Controllerにて、return response()->json($profiles);
+を最後につける。
+
+例：    public function index()
+    {
+        $profiles = Profile::all();
+        return response()->json($profiles);
+    }
+    public function store(Request $request)
+    {
+        $profile = new Profile;
+        $profile->name = $request->name;
+        $profile->email = $request->email;
+        $profile->profile = $request->profile;
+        $profile->phone = $request->phone;
+        $profile->save();
+
+        return response()->json($profile);
+    }
+
+【api.php】
+Route::apiResourceを使えば、index・show・store・update・destroy全て設定してくれる
+
+例：
+Route::apiResource('/profiles', ProfileController::class);
+
+【htmlファイル】
+・resources/viewのディレクトリにblade.phpで入れておくのは変わらない
+・jsは@vite('resources/js/***.js’)で読み込む
+・共通のcss、jsは@vite('resources/css/app.css')@vite('resources/js/app.js’)で読み込む
+
+【vite.config.js】
+input: ['resources/css/app.css', 'resources/js/app.js','resources/css/*.css', 'resources/js/*.js'],
+で設定する
+
+【jsファイル（jqueryやbootstrapなど共通するものじゃないやつ）】
+api.jsでデータの受け取りに関する関数を確認してください。
+その関数をimportで読み込む＋非同期処理さえわかれば、いつものjavascriptでコーディングできます。
+
+【css・jsファイルで共通するもの】
+app.cssやapp.jsにimportしておきます。
+
+【web.php】
+普通のbladeでの設定と同じです。
+
