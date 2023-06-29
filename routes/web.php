@@ -32,4 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// 画面確認用
+Route::get('/thrown', function (){
+    return view('thrown');
+});
+
+Route::get('/message_insert', function (){
+    return view('message_insert');
+});
+
+
 require __DIR__.'/auth.php';
