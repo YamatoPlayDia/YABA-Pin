@@ -24,8 +24,10 @@
 <?php unset($__componentOriginal71c6471fa76ce19017edc287b6f4508c); ?>
 <?php endif; ?>
 
-    <form method="POST" action="<?php echo e(route('login')); ?>">
-        <?php echo csrf_field(); ?>
+    <!-- <form method="POST" action="<?php echo e(route('login')); ?>"> -->
+    <form method="POST" action="<?php echo e(route('login')); ?>" class="bg-teal-900 p-6 rounded-lg" style="background-image: url('/images/____________________________2023-06-29_10.28.16.png'); background-size: cover; max-width: 390px; max-height: 844px; display: flex; justify-content: center; align-items: center;" >
+
+    <?php echo csrf_field(); ?>
 
         <!-- Email Address -->
         <div>
