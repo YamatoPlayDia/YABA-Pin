@@ -18,6 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/map_read', function () {
+    return view('map_read');
+});
+
 Route::get('/create-spot', function () {
     return view('create_spot');
 });
