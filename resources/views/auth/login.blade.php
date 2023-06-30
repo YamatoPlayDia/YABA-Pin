@@ -3,7 +3,7 @@
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <!-- <form method="POST" action="{{ route('login') }}"> -->
-    <form method="POST" action="{{ route('login') }}" class="bg-teal-900 p-6 rounded-lg" style="background-image: url('/images/____________________________2023-06-29_10.28.16.png'); background-size: cover; max-width: 390px; max-height: 844px; display: flex; justify-content: center; align-items: center;" >
+    <form method="POST" action="{{ route('login') }}" class="bg-teal-900 p-6 rounded-lg" style="background-image: url('./public/assets/img/loginimg.png'); background-size: cover; max-width: 390px; max-height: 844px; display: flex; justify-content: center; align-items: center;" >
 
     @csrf
         <div style="margin-top: 540px;">

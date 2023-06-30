@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" style="background-image: url('/images/____________________________2023-06-29_10.28.16.png'); background-size: cover; max-width: 390px; max-height: 844px; display: flex; justify-content: center; align-items: center;">
+    <form method="POST" action="{{ route('register') }}" style="background-image: url('./public/assets/img/loginimg.png'); background-size: cover; max-width: 390px; max-height: 844px; display: flex; justify-content: center; align-items: center;">
         @csrf
         <div style="margin-top: 400px;">
             <!-- Name -->
