@@ -14,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/lunchbox', function () {
+    return view('lunchbox');
+});
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/create-spot', function () {
     return view('create_spot');
