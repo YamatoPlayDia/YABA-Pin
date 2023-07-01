@@ -9,5 +9,5 @@ class Spot extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type', 'name', 'latitude', 'longitude'];
+    protected $fillable = ['type', 'name', 'latitude', 'longitude', 'gmpid']; // 'gmpid'を追加
 }
