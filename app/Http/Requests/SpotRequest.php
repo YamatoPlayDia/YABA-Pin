@@ -13,6 +13,7 @@ class SpotRequest extends FormRequest
             'name' => 'required|string|max:255',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
+            'gmpid' => 'nullable|string|max:255', // 'gmpid'を追加
         ];
     }
 }
