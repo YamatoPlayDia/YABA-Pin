@@ -9,10 +9,10 @@
 </head>
 <body class="flex justify-center">
     <main class="bg-blue-500 flex flex-col min-h-screen w-screen">
-        {{-- 秘密を見る権利 --}}
+        {{-- 秘密を見る権利
         <div class="flex justify-end py-1 px-1">
             ⭐️⭐️⭐️
-        </div>
+        </div> --}}
         {{-- メッセージ画面 --}}
         <div class="text-xs bg-neutral-50 bg-opacity-70 py-4 px-4 mx-4 mt-auto mb-4">
             <p>秘密を瓶に託しました。</p>
