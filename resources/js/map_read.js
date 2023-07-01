@@ -97,15 +97,6 @@ async function initMap() {
 
         markers.push(markerView);
 
-        // 現在地のマーカーに対してクリックイベントを追加します：
-        markerView.addListener('click', function() {
-            markers.forEach(marker => console.log(marker.position));
-        });
-
-        // 地図上のピンをクリックしたときのイベントリスナーを追加します。
-        markerView.addListener('click', function() {
-            console.log(currentPosition);
-        });
         // Create a circle centered at the current position.
         const circleRadius = 200;
         const circle = new google.maps.Circle({
@@ -117,14 +108,6 @@ async function initMap() {
             map: map,
             center: currentPosition,
             radius: circleRadius,
-        });
-        google.maps.event.addListener(circle, 'click', function() {
-            markers.forEach(marker => {
-                const isInCircle = google.maps.geometry.spherical.computeDistanceBetween(marker.position, circle.getCenter()) <= circle.getRadius();
-                if (isInCircle) {
-                    console.log(marker.position);
-                }
-            });
         });
         // Directions and their corresponding degrees
         const directions = {
@@ -155,12 +138,12 @@ async function initMap() {
 
             // Create the marker for the direction
             const directionMarker = new google.maps.Marker({
-            position: point,
-            map,
-            icon: {
-                url: 'data:image/svg+xml,' + encodeURIComponent(directionSvg),
-                scaledSize: new google.maps.Size(22, 22),
-            },
+                position: point,
+                map,
+                icon: {
+                    url: 'data:image/svg+xml,' + encodeURIComponent(directionSvg),
+                    scaledSize: new google.maps.Size(22, 22),
+                },
             });
         }
 
@@ -194,17 +177,15 @@ async function initMap() {
                     placeIds.push(results[i].place_id);
 
                     const isInCircle = google.maps.geometry.spherical.computeDistanceBetween(results[i].geometry.location, circle.getCenter()) <= circle.getRadius();
-                    const placePin = new PinElement({
-                        background: isInCircle ? "#447530" : "#b9d3c2",
-                        borderColor: isInCircle ? "#a5b076" : "#92998d",
-                        glyphColor: isInCircle ? "#a5b076" : "#92998d",
-                        scale: 1.0,
-                    });
+                    const imageElement = document.createElement('img');
+                    imageElement.src = isInCircle ? 'img/kirabottle.png' : 'img/palebottole.png';
+                    imageElement.style.width = '40px';
+                    imageElement.style.height = '80px';
 
                     // Marker creation
                     const marker = new AdvancedMarkerElement({
                         map,
-                        content: placePin.element,
+                        content: imageElement, // use imageElement here
                         position: results[i].geometry.location,
                     });
 
@@ -324,11 +305,35 @@ async function initMap() {
 document.getElementById('rotate-left').addEventListener('click', function() {
     map.setHeading(map.getHeading() - 45);
     model.rotation.y -= Math.PI / 4;
-});https://maps.googleapis.com/maps/api/place/js/PhotoService.GetPhoto?1sAaw_FcLkPCt-_A0rn-tb7mKPiAy4ueVjD9nwPNYwDALR98Z8Bka-OsMi4r1tJ6zXUTW_Kd_jJVP_TnGcUY3OQZ5thfWxUC2A7WWcE5nxKi4uZCPAYx0T9SAKtT61yHTC6HK8VbpE10Rgxhh2Z-pKoIiel3tpovFReYhnts0bZ29enPsmgDcB&3u3072&5m1&2e1&callback=none&key=AIzaSyCAG2YEDYixE9zNbBckshdHLm3AHlLHuyE&token=74411
+});
 
 document.getElementById('rotate-right').addEventListener('click', function() {
     map.setHeading(map.getHeading() + 45);
     model.rotation.y += Math.PI / 4;
+});
+
+document.getElementById('reload').addEventListener('click', function() {
+    // Get current position again
+    navigator.geolocation.getCurrentPosition(function(position) {
+        currentPosition = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+
+        // Reset map center to current position
+        map.setCenter(currentPosition);
+
+        // Reset heading to initial value
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", function(event) {
+                // Check if the browser provides alpha value (compass direction)
+                if (event.alpha !== null) {
+                    // Alpha is the compass direction the device is facing in degrees.
+                    map.setHeading(event.alpha);
+                }
+            }, false);
+        }
+    });
 });
 
 initMap();
