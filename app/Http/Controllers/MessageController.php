@@ -36,4 +36,14 @@ class MessageController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getOneByData($dataName, $uniqueData)
+    {
+        return Message::where($dataName, $uniqueData)->first();
+    }
+
+    public function getMultiByData($dataName, $Data)
+    {
+        return Message::where($dataName, $Data)->get();
+    }
 }

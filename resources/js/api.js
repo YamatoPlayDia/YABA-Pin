@@ -31,3 +31,15 @@ export function remove(endpoint, id) {
       .then(response => response.data)
       .catch(handleError);
 }
+
+export function getOneFromData(endpoint, dataName, uniqueData) {
+  return axios.get(`/api/${endpoint}/${dataName}/${uniqueData}`)
+    .then(response => response.data)
+    .catch(handleError);
+}
+
+export function getMultiFromData(endpoint, dataName, Data) {
+  return axios.get(`/api/${endpoint}/${dataName}/${Data}`)
+    .then(response => response.data)
+    .catch(handleError);
+}

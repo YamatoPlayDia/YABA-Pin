@@ -36,4 +36,14 @@ class SpotController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getOneByData($dataName, $uniqueData)
+    {
+        return Spot::where($dataName, $uniqueData)->first();
+    }
+
+    public function getMultiByData($dataName, $Data)
+    {
+        return Spot::where($dataName, $Data)->get();
+    }
 }
