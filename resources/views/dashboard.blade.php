@@ -10,6 +10,13 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
+                    <h1>Welcome, {{ auth()->user()->name }}</h1>
+                    <div>
+                        <a href="{{ route('message_insert') }}">秘密を書く</a>
+                    </div>
+                    <div>
+                        <a href="#">秘密を探す</a>
+                    </div>
                 </div>
             </div>
         </div>
