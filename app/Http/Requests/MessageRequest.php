@@ -10,10 +10,10 @@ class MessageRequest extends FormRequest
     {
         return [
             'writer_id' => 'required|integer|exists:users,id',
-            'reader_id' => 'required|integer|exists:users,id',
+            'reader_id' => 'nullable|integer|exists:users,id',
             'himitsu' => 'required|string',
-            'spot_id' => 'required|integer|exists:spots,id',
-            'status' => 'required|string',
+            'spot_id' => 'nullable|integer|exists:spots,id',
+            'status' => 'nullable|string',
         ];
     }
 }

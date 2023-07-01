@@ -43,7 +43,7 @@ Route::get('/thrown', function (){
 
 Route::get('/message_insert', function (){
     return view('message_insert');
-});
+})->middleware(['auth'])->name('message_insert');
 
 
 require __DIR__.'/auth.php';

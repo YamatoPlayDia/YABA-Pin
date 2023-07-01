@@ -2,15 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>   
      <!-- CSS only -->
      @vite('resources/css/app.css')
+     <style>
+        body {
+            background-image: url('assets/img/basic.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: auto;
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-blue-500 px-2 lg:px-0">
+<body class="flex items-center justify-cente bg-blue-500 min-h-screen px-2 lg:px-0">
     {{-- フォーム --}}
     <div class="p-6 w-full">
         <form id="messageForm">
+            @csrf
             <div class="mb-4">
                 <textarea id="himitsu" name="himitsu" rows="10" class="w-full p-2 border rounded"></textarea>
             </div>
@@ -22,5 +32,7 @@
             </div>
         </form>
     </div>
+    <!-- Custom JS -->
+    @vite('resources/js/create_message.js')
 </body>
 </html>
