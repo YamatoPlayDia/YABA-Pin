@@ -36,4 +36,14 @@ class FootprintController extends Controller
 
         return response()->json(null, 204);
     }
+
+    public function getOneByData($dataName, $uniqueData)
+    {
+        return Footprint::where($dataName, $uniqueData)->first();
+    }
+
+    public function getMultiByData($dataName, $Data)
+    {
+        return Footprint::where($dataName, $Data)->get();
+    }
 }

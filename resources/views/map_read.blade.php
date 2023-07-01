@@ -26,6 +26,11 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
         </svg>
     </button>
+    <button id="reload" class="circle-button bg-white">
+        <svg class="h-6 w-6 text-black mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+    </button>
 </div>
 <div id="cards-slider" class="flex overflow-x-auto p-4 mb-4 absolute bottom-0 w-full hidden-scrollbar">
 </div>
