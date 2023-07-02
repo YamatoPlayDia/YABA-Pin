@@ -12,7 +12,7 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-size: auto;
+            background-size: cover;
         }
     </style>
 </head>
@@ -27,7 +27,7 @@
             <input type="hidden" id="writer_id" name="writer_id" value="{{ Auth::id() }}">
             <div class="flex justify-center">
                 <button type="submit" class="bg-indigo-900 text-white py-2 px-4 rounded">
-                    送信
+                    ひみつをなげる
                 </button>
             </div>
         </form>

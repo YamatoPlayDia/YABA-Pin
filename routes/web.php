@@ -50,5 +50,8 @@ Route::get('/message_insert', function (){
     return view('message_insert');
 })->middleware(['auth'])->name('message_insert');
 
+Route::get('/burned', function (){
+    return view('burned');
+});
 
 require __DIR__.'/auth.php';
