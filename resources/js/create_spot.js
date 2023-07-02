@@ -5,6 +5,7 @@ document.getElementById('spotForm').addEventListener('submit', function(event) {
 
     let type = document.getElementById('type').value;
     let name = document.getElementById('name').value;
+    let gmpid = document.getElementById('gmpid').value;
     let latitude = parseFloat(document.getElementById('latitude').value);
     let longitude = parseFloat(document.getElementById('longitude').value);
 
@@ -12,7 +13,8 @@ document.getElementById('spotForm').addEventListener('submit', function(event) {
         type: type,
         name: name,
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        gmpid: gmpid,
     };
 
     create('spots', data).then(data => {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FootprintRequest;
 use App\Models\Footprint;
 use Illuminate\Http\Request;
+use League\CommonMark\Extension\Footnote\Node\Footnote;
 
 class FootprintController extends Controller
 {
@@ -39,11 +40,13 @@ class FootprintController extends Controller
 
     public function getOneByData($dataName, $uniqueData)
     {
-        return Footprint::where($dataName, $uniqueData)->first();
+        $result = Footprint::where($dataName, $uniqueData)->first();
+        return $result ? $result : null; // Return null if no result is found
     }
 
     public function getMultiByData($dataName, $Data)
     {
-        return Footprint::where($dataName, $Data)->get();
+        $results = Footprint::where($dataName, $Data)->get();
+        return $results->isEmpty() ? null : $results; // Return null if no results are found
     }
 }

@@ -39,11 +39,14 @@ class MessageController extends Controller
 
     public function getOneByData($dataName, $uniqueData)
     {
-        return Message::where($dataName, $uniqueData)->first();
+        $result = Message::where($dataName, $uniqueData)->first();
+        return $result ? $result : null; // Return null if no result is found
     }
 
     public function getMultiByData($dataName, $Data)
     {
-        return Message::where($dataName, $Data)->get();
+        $results = Message::where($dataName, $Data)->get();
+        return $results->isEmpty() ? null : $results; // Return null if no results are found
     }
+
 }
