@@ -43,3 +43,13 @@ export function getMultiFromData(endpoint, dataName, Data) {
     .then(response => (response.data && response.data.length > 0) ? response.data : undefined)
     .catch(handleError);
 }
+
+export function getUserID() {
+  return axios.get('/api/user', {
+      headers: {
+          'Authorization': `Bearer ${window.Laravel.apiToken}`,
+      },
+  })
+  .then(response => response.data.id)
+  .catch(handleError); // 既に定義されているエラーハンドリング関数を使用
+}

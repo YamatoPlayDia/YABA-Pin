@@ -36,7 +36,7 @@
     <div class="flex-none w-64 h-48 mr-4 mb-4 bg-white rounded-xl shadow-lg flex flex-col justify-between">
         <img src="img/type-park.png" class="w-full h-2/5 object-cover rounded-t-xl">
         <div class="p-3">
-            <p class="text-xs text-gray-500"></p>
+            <p class="text-xs text-gray-500">{{ Auth::id() }}</p>
             <h2 class="text-lg font-semibold">・・・</h2>
             <p class="text-xs text-gray-400"></p>
         </div>
@@ -56,6 +56,14 @@
         <!-- prettier-ignore -->
         <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
             ({key: "AIzaSyCAG2YEDYixE9zNbBckshdHLm3AHlLHuyE", v: "beta"});</script>
+        <script>
+            @if(Auth::check()) <!-- ユーザーが認証されているかチェック -->
+                window.Laravel = {!! json_encode([
+                    'csrfToken' => csrf_token(),
+                    'apiToken' => Auth::user()->createToken('Token Name')->plainTextToken // トークンの作成と取得
+                ]) !!};
+            @endif
+        </script>
     @vite('resources/js/app.js')
     <!-- Custom JS -->
     @vite('resources/js/map_read.js')
