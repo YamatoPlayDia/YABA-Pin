@@ -39,11 +39,14 @@ class SpotController extends Controller
 
     public function getOneByData($dataName, $uniqueData)
     {
-        return Spot::where($dataName, $uniqueData)->first();
+        $result = Spot::where($dataName, $uniqueData)->first();
+        return $result ? $result : null; // Return null if no result is found
     }
 
     public function getMultiByData($dataName, $Data)
     {
-        return Spot::where($dataName, $Data)->get();
+        $results = Spot::where($dataName, $Data)->get();
+        return $results->isEmpty() ? null : $results; // Return null if no results are found
     }
+
 }
