@@ -1,6 +1,6 @@
 
 import { mapOptions } from './mapConfig';
-import { getOneFromData, getMultiFromData } from './api.js';
+import { getOneFromData, getMultiFromData, getUserID } from './api.js';
 let map;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
@@ -328,4 +328,7 @@ document.getElementById('reload').addEventListener('click', async function() {
     model.rotation.y = Math.PI;
 });
 
+getUserID().then(id => {
+    console.log(id); // ユーザーIDをコンソールに出力
+});
 
