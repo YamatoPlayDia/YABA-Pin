@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/top_logo', function () {
+    return view('top_logo');
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
