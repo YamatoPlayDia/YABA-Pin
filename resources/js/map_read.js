@@ -1,6 +1,6 @@
 
 import { mapOptions } from './mapConfig';
-import { getOneFromData, getMultiFromData, getUserID } from './api.js';
+import { getOneFromData, getMultiFromData, getUserID, getOne, update } from './api.js';
 let map;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
@@ -262,31 +262,66 @@ async function initMap() {
                             return { ...cardData, name, msgCount };
                         }
                     }));
-
+                    const uid = await getUserID();
+                    const footprint = await getOne('footprints', uid);
                     newCardsData.forEach(cardData => {
-                        generateCard(cardData.name, cardData.msgCount, cardData);
+                        generateCard(cardData.name, cardData.msgCount, cardData, footprint);
                     });
-                    function generateCard(name, msgCount, cardData) {
-                        const card = `<div class="card flex-none w-64 h-48 mr-4 mb-4 bg-white rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
-                            <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl">
-                            <div class="p-3">
+                    function generateCard(name, msgCount, cardData, footprint) {
+                        const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && msgCount >= 1;
+                        const card = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
+                            <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
+                            <div class="p-3 scale">
                                 <p class="text-xs text-gray-500">${cardData.name} - ${cardData.direction} ${cardData.distance}</p>
                                 <h2 class="text-lg font-semibold">${name}</h2>
                                 <p class="text-xs text-gray-400">${msgCount}件あります</p>
                             </div>
-                            <button class="p-3 text-sm ${cardData.isInCircle ? 'bg-blue-500' : 'bg-gray-500'} text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>拾う</button>
+                            <button data-place-id="${cardData.placeId}" style="background-color: ${isPickable ? '#1E2082' : '#6A7280'}" class="${isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${isPickable ? '' : 'disabled'}>ひみつをひろう</button>
                         </div>`;
                         document.querySelector('#cards-slider').innerHTML += card;
                     }
-                    const cards = document.querySelectorAll('.card');
-                    cards.forEach(card => {
-                        card.addEventListener('click', () => {
-                            const marker = markersByPlaceId[card.dataset.placeId];
+                    const scaleElements = document.querySelectorAll('.card .scale');
+                    scaleElements.forEach(element => {
+                        element.addEventListener('click', () => {
+                            const marker = markersByPlaceId[element.closest('.card').dataset.placeId];
                             marker.content.style.transform = 'scale(1.5)';  // Increase size of icon
                         });
-                        google.maps.event.addListener(map, 'click', () => {
-                            for (let placeId in markersByPlaceId) {
-                                markersByPlaceId[placeId].content.style.transform = 'scale(1.0)';  // Reset size of icon
+                    });
+                    google.maps.event.addListener(map, 'click', () => {
+                        for (let placeId in markersByPlaceId) {
+                            markersByPlaceId[placeId].content.style.transform = 'scale(1.0)';  // Reset size of icon
+                        }
+                    });
+                    const buttons = document.querySelectorAll('.pickup-button');
+                    buttons.forEach(button => {
+                        button.addEventListener('click', async (event) => {
+                            const placeId = event.target.getAttribute('data-place-id');
+                            const spot = await getOneFromData('spots', 'gmpid', placeId);
+                            const uid = await getUserID();
+                            const messages = await getMultiFromData('messages', 'spot_id', spot.id);
+                            const count = messages.length;
+                            const userFootprint = await getOne('footprints', uid);
+
+                            if (count <= 0 || userFootprint.rights_read <= 0) {
+                                // モーダルを表示する
+                                const modal = document.getElementById('myModal');
+                                modal.classList.remove('hidden');
+                            } else {
+                                // 以前の処理を続ける
+                                const randomIndex = Math.floor(Math.random() * count);
+                                const bottle = messages[randomIndex];
+                                let readerData = {
+                                    ...bottle,
+                                    reader_id: uid,
+                                    status:'読む準備中',
+                                };
+                                await update('messages', bottle.id, readerData);
+                                let footprintUpdateData = {
+                                    ...userFootprint,
+                                    rights_read: 0,
+                                };
+                                await update('footprints', uid, footprintUpdateData);
+                                // window.location.href = '/burned';
                             }
                         });
                     });
@@ -322,13 +357,6 @@ document.getElementById('rotate-right').addEventListener('click', function() {
     model.rotation.y += Math.PI / 4;
 });
 document.getElementById('reload').addEventListener('click', async function() {
-    // initMap functionが終了するまで待つ
     await runInitMapAndToggleButtons();
-    // initMap functionが終了した後に実行
     model.rotation.y = Math.PI;
 });
-
-getUserID().then(id => {
-    console.log(id); // ユーザーIDをコンソールに出力
-});
-

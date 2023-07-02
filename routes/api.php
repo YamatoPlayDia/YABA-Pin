@@ -26,9 +26,9 @@ Route::apiResource('spots', SpotController::class);
 Route::apiResource('footprints', FootprintController::class);
 Route::apiResource('messages', MessageController::class);
 
-Route::get('/spots/{dataName}/{uniqueData}', [SpotController::class, 'getOneByData']);
-Route::get('/spots/{dataName}/{Data}', [SpotController::class, 'getMultiByData']);
-Route::get('/footprints/{dataName}/{uniqueData}', [FootprintController::class, 'getOneByData']);
-Route::get('/footprints/{dataName}/{Data}', [FootprintController::class, 'getMultiByData']);
-Route::get('/messages/{dataName}/{uniqueData}', [MessageController::class, 'getOneByData']);
-Route::get('/messages/{dataName}/{Data}', [MessageController::class, 'getMultiByData']);
+Route::get('/spots/one/{dataName}/{uniqueData}', [SpotController::class, 'getOneByData']);
+Route::get('/spots/multi/{dataName}/{Data}', [SpotController::class, 'getMultiByData']);
+Route::get('/footprints/one/{dataName}/{uniqueData}', [FootprintController::class, 'getOneByData']);
+Route::get('/footprints/multi/{dataName}/{Data}', [FootprintController::class, 'getMultiByData']);
+Route::get('/messages/one/{dataName}/{uniqueData}', [MessageController::class, 'getOneByData']);
+Route::get('/messages/multi/{dataName}/{Data}', [MessageController::class, 'getMultiByData']);
