@@ -34,12 +34,12 @@ export function remove(endpoint, id) {
 
 export function getOneFromData(endpoint, dataName, uniqueData) {
   return axios.get(`/api/${endpoint}/${dataName}/${uniqueData}`)
-    .then(response => response.data)
+    .then(response => response.data ? response.data : undefined)
     .catch(handleError);
 }
 
 export function getMultiFromData(endpoint, dataName, Data) {
   return axios.get(`/api/${endpoint}/${dataName}/${Data}`)
-    .then(response => response.data)
+    .then(response => (response.data && response.data.length > 0) ? response.data : undefined)
     .catch(handleError);
 }

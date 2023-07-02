@@ -1,7 +1,7 @@
 
 import { mapOptions } from './mapConfig';
+import { getOneFromData, getMultiFromData } from './api.js';
 let map;
-let currentPosition;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
@@ -31,7 +31,7 @@ mtlLoader.load('models/ducks/Duck.mtl', function (materials) {
         const boundingBox = new THREE.Box3().setFromObject(model);
         const modelHeight = boundingBox.max.y - boundingBox.min.y;
         model.position.y = modelHeight / 2; // Set the model's position to half of its height.
-        model.rotation.y += Math.PI;
+        model.rotation.y = Math.PI;
         model.rotation.x += THREE.MathUtils.degToRad(25);
         const ambientLight = new THREE.AmbientLight(0xffffff, 1);
         scene.add(ambientLight);
@@ -58,7 +58,7 @@ async function initMap() {
     let cardsData = [];
     // Use the browser's built-in Geolocation API to get the current location.
     navigator.geolocation.getCurrentPosition(async function (position) {
-        const currentPosition = {
+        let currentPosition = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
         };
@@ -99,7 +99,7 @@ async function initMap() {
 
         // Create a circle centered at the current position.
         const circleRadius = 200;
-        const circle = new google.maps.Circle({
+        let circle = new google.maps.Circle({
             strokeColor: '#db8555',
             strokeOpacity: 0.8,
             strokeWeight: 3,
@@ -146,9 +146,6 @@ async function initMap() {
                 },
             });
         }
-
-
-
         // Use the PlacesService to find nearby parks.
         const { RankBy } = await google.maps.importLibrary("places");
         // Use the PlacesService to find nearby parks.
@@ -160,8 +157,6 @@ async function initMap() {
             type: ['park'], // Changed type to keyword
         };
         let placeIds = []; // To store unique placeIds
-        let nextPageToken = null;
-        let delayInMilliseconds = 2000; //two seconds
         // An object to store markers by placeId for easy access
         let markersByPlaceId = {};
 
@@ -176,7 +171,7 @@ async function initMap() {
                     }
                     placeIds.push(results[i].place_id);
 
-                    const isInCircle = google.maps.geometry.spherical.computeDistanceBetween(results[i].geometry.location, circle.getCenter()) <= circle.getRadius();
+                    let isInCircle = google.maps.geometry.spherical.computeDistanceBetween(results[i].geometry.location, circle.getCenter()) <= circle.getRadius();
                     const imageElement = document.createElement('img');
                     imageElement.src = isInCircle ? 'img/kirabottle.png' : 'img/palebottole.png';
                     imageElement.style.width = '40px';
@@ -223,7 +218,6 @@ async function initMap() {
                                 // Calculate direction and convert to 8-direction format.
                                 const directionDegrees = google.maps.geometry.spherical.computeHeading(new google.maps.LatLng(currentPosition), place.geometry.location);
                                 const direction = getDirection(directionDegrees);
-
                                 cardsData.push({
                                     placeId: place.place_id,
                                     name: place.name,
@@ -246,43 +240,44 @@ async function initMap() {
                     promises.push(promise);
                 }
                 // When all the promises are done, sort the data and generate the cards.
-                Promise.all(promises).then(() => {
-
+                Promise.all(promises).then(async () => {
                     // Sort the data by distance.
                     cardsData.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
 
                     // Clear the current cards.
                     document.querySelector('#cards-slider').innerHTML = '';
 
-                    var style = document.createElement('style');
-                    style.id = 'cards-style';
-                    style.innerHTML = `
-                    #cards-slider > div {
-                        visibility: hidden;
-                    }
-                    `;
-                    document.head.appendChild(style);
+                    const newCardsData = await Promise.all(cardsData.map(async cardData => {
+                        const gmpid = cardData.placeId;
+                        const data = await getOneFromData('spots', 'gmpid', gmpid);
+                        if (data) {
+                            const name = data.name || 'みかいたくのち';
+                            const spotId = data.id;
+                            const res = await getMultiFromData('messages', 'spot_id', spotId);
+                            const msgCount = res ? res.length : 0;
+                            return { ...cardData, name, msgCount };
+                        } else {
+                            const name = 'みかいたくのち';
+                            const msgCount = 0;
+                            return { ...cardData, name, msgCount };
+                        }
+                    }));
 
-                    // Generate a new card for each data point and add it to the #cards-slider element.
-                    for (let cardData of cardsData) {
+                    newCardsData.forEach(cardData => {
+                        generateCard(cardData.name, cardData.msgCount, cardData);
+                    });
+                    function generateCard(name, msgCount, cardData) {
                         const card = `<div class="card flex-none w-64 h-48 mr-4 mb-4 bg-white rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
                             <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl">
                             <div class="p-3">
                                 <p class="text-xs text-gray-500">${cardData.name} - ${cardData.direction} ${cardData.distance}</p>
-                                <h2 class="text-lg font-semibold">みかいたくのち</h2>
-                                <p class="text-xs text-gray-400">${cardData.address}</p>
+                                <h2 class="text-lg font-semibold">${name}</h2>
+                                <p class="text-xs text-gray-400">${msgCount}件あります</p>
                             </div>
                             <button class="p-3 text-sm ${cardData.isInCircle ? 'bg-blue-500' : 'bg-gray-500'} text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>拾う</button>
                         </div>`;
                         document.querySelector('#cards-slider').innerHTML += card;
                     }
-
-                    window.getComputedStyle(document.querySelector('#cards-slider > div')).visibility;
-
-                    // 非表示のスタイルを削除し、HTML要素を表示します。
-                    document.getElementById('cards-style').remove();
-
-                    // Add mouseover and mouseout listeners to each card to highlight and unhighlight its corresponding marker
                     const cards = document.querySelectorAll('.card');
                     cards.forEach(card => {
                         card.addEventListener('click', () => {
@@ -300,8 +295,23 @@ async function initMap() {
         });
     });
 };
-  // Create zoom in and zoom out functionalities
+// initMap関数をラップする関数
+async function runInitMapAndToggleButtons() {
+    // ボタンを無効にする
+    document.getElementById('rotate-right').disabled = true;
+    document.getElementById('rotate-left').disabled = true;
+    document.getElementById('reload').disabled = true;
 
+    // initMap functionが終了するまで待つ
+    await initMap();
+
+    // ボタンを再び有効にする
+    document.getElementById('rotate-right').disabled = false;
+    document.getElementById('rotate-left').disabled = false;
+    document.getElementById('reload').disabled = false;
+}
+  // Create zoom in and zoom out functionalities
+// runInitMapAndToggleButtons();
 document.getElementById('rotate-left').addEventListener('click', function() {
     map.setHeading(map.getHeading() - 45);
     model.rotation.y -= Math.PI / 4;
@@ -311,29 +321,11 @@ document.getElementById('rotate-right').addEventListener('click', function() {
     map.setHeading(map.getHeading() + 45);
     model.rotation.y += Math.PI / 4;
 });
-
-document.getElementById('reload').addEventListener('click', function() {
-    // Get current position again
-    navigator.geolocation.getCurrentPosition(function(position) {
-        currentPosition = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-
-        // Reset map center to current position
-        map.setCenter(currentPosition);
-
-        // Reset heading to initial value
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener("deviceorientation", function(event) {
-                // Check if the browser provides alpha value (compass direction)
-                if (event.alpha !== null) {
-                    // Alpha is the compass direction the device is facing in degrees.
-                    map.setHeading(event.alpha);
-                }
-            }, false);
-        }
-    });
+document.getElementById('reload').addEventListener('click', async function() {
+    // initMap functionが終了するまで待つ
+    await runInitMapAndToggleButtons();
+    // initMap functionが終了した後に実行
+    model.rotation.y = Math.PI;
 });
 
-initMap();
+
