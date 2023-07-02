@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>My Web App</title>
+	<style>
+		html,
+		body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			background-image: url('loginimg.png');
+			background-size: cover;
+			background-repeat: no-repeat;
+			font-family: Arial, sans-serif;
+			box-sizing: border-box;
+		}
+
+		.container {
+			text-align: center;
+
+			position: relative;
+			height: 100%;
+		}
+
+		.title {
+			padding-top: 15%;
+			font-size: 3em;
+			color: white;
+		}
+
+		.button {
+			display: inline-block;
+			margin: 20px auto;
+			padding: 10px 10px;
+			width: 70%;
+			color: white;
+			background-color: #007BFF;
+			border: none;
+			border-radius: 20px;
+			text-decoration: none;
+			font-size: 1.2em;
+			position: absolute;
+			left: 15%;
+		}
+
+		#login {
+			bottom: 18%;
+		}
+
+		#register {
+			bottom: 8%;
+		}
+
+		.button:hover {
+			background-color: #0056b3;
+		}
+
+		/* Large screens */
+		@media (min-width: 600px) {
+			body {
+				background-size: 100% auto;
+			}
+
+			.title {
+				font-size: 4em;
+			}
+
+			.button {
+				padding: 15px 30px;
+				font-size: 1.5em;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1 class="title">Welcome</h1>
+		<a href="login.html" class="button" id="login">Log in</a> <!-- ログイン画面へのリンク -->
+		<a href="register.html" class="button" id="register">Sign up</a> <!-- 登録画面へのリンク -->
+	</div>
+</body>
+
+</html>
