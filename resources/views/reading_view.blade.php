@@ -25,6 +25,12 @@
         <div class="leading-relaxed text-s text-white py-4 px-8 mx-4 absolute" style="top: 150px;">
             <p id="p1" data-text="ダミーテキストだよ！僕は昔、長距離走大会で振舞われた特大の餅（1枚が普通の4個分くらい）を5枚平らげたことがあるよ！"></p>
         </div>
+        {{-- ボタン --}}
+        <div class="absolute bottom-48 w-full flex justify-center">
+            <button class="yabapin_btn bg-indigo-900 text-white py-2 px-4 rounded" style="display: none; opacity: 0; transition: opacity 2s;">
+                秘密を手放す
+            </button>
+        </div>
     </main>
     {{-- js --}}
     @vite('resources/js/typing.js')
