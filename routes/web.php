@@ -56,5 +56,11 @@ Route::get('/message_insert', function (){
 Route::get('/burned', function (){
     return view('burned');
 });
+Route::get('/burning', function (){
+    return view('burning');
+});
+Route::get('/throwing', function (){
+    return view('throwing');
+});
 
 require __DIR__.'/auth.php';
