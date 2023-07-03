@@ -63,4 +63,8 @@ Route::get('/throwing', function (){
     return view('throwing');
 });
 
+Route::get('/reading_view', function (){
+    return view('reading_view');
+});
+
 require __DIR__.'/auth.php';
