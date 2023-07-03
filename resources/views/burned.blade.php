@@ -14,28 +14,12 @@
             background-attachment: fixed;
             background-size: cover;
         }
-
-        img {
-            transform-origin:0 50%;
-            transform:rotate(-90deg);
-        }
     </style>
 </head>
 <body class="flex justify-center">
     <main class="flex flex-col min-h-screen w-screen">
         {{-- 秘密を見る権利 --}}
-        <div class="flex justify-end py-1 px-1">
-            <table>
-                <td>
-                    <div>ひろえる！</div>
-                </td>
-                <td>
-                    <div>
-                        <img src="assets/img/palebottole.png" style="width:42px">
-                    </div>
-                </td>
-            </table>
-        </div>
+        @include('components.bottle')
 
         {{-- メッセージ画面 --}}
         <div id="burnedBtn" class="leading-relaxed text-s text-blue-900 bg-neutral-50 bg-opacity-70 py-4 px-4 mx-4 mt-auto mb-8">
