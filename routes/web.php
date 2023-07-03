@@ -19,9 +19,10 @@ Route::get('/top_logo', function () {
 });
 
 
-Route::get('/', function () {
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
 
 Route::get('/map_read', function () {
     return view('map_read');
