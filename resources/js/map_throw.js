@@ -1,5 +1,6 @@
 import { mapOptions } from './mapConfig';
-import { getOneFromData, getMultiFromData, getUserID, getOne, update } from './api.js';
+import { newSpotName } from './functions';
+import { getOneFromData, getMultiFromData, getUserID, update, create, getOne } from './api.js';
 let map;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
@@ -275,10 +276,9 @@ async function initMap() {
                         }
                     }));
                     newCardsData.forEach(cardData => {
-                        generateCard(cardData, footprint);
+                        generateCard(cardData);
                     });
-                    function generateCard(cardData, footprint) {
-                        const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && cardData.msgCount >= 1;
+                    function generateCard(cardData) {
                         const card = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
                             <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
                             <div class="p-3 scale">
@@ -286,7 +286,7 @@ async function initMap() {
                                 <h2 class="text-lg font-semibold">${cardData.nickname}</h2>
                                 <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
                             </div>
-                            <button data-place-id="${cardData.placeId}" style="background-color: ${isPickable ? '#1E2082' : '#6A7280'}" class="${isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${isPickable ? '' : 'disabled'}>ここのひみつをひろう</button>
+                            <button data-place-id="${cardData.placeId}" data-place-lat="${cardData.latitude}" data-place-lng="${cardData.longitude}" style="background-color: ${cardData.isInCircle ? '#1E2082' : '#6A7280'}" class="${cardData.isInCircle ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>ここにひみつをなげる</button>
                         </div>`;
                         document.querySelector('#cards-slider').innerHTML += card;
                     }
@@ -306,29 +306,40 @@ async function initMap() {
                     buttons.forEach(button => {
                         button.addEventListener('click', async (event) => {
                             const placeId = event.target.getAttribute('data-place-id');
-                            const spot = await getOneFromData('spots', 'gmpid', placeId);
-                            const messages = await getMultiFromData('messages', 'spot_id', spot.id);
-                            const count = messages.length;
-                            if (count <= 0 || footprint.rights_read <= 0) {
+                            const latitudeString = event.target.getAttribute('data-place-lat');
+                            const longitudeString = event.target.getAttribute('data-place-lng');
+                            const latitude = parseFloat(latitudeString).toFixed(6);
+                            const longitude = parseFloat(longitudeString).toFixed(6);
+                            const draft = await getOneFromData('messages', 'writer_id', uid);
+                            if (draft.status == '下書き'){
+                                let spot = await getOneFromData('spots', 'gmpid', placeId);
+                                // スポットが存在しない場合、新しいスポットを作成する
+                                if (!spot) {
+                                    const newSpotData = {
+                                        type: 'park',
+                                        gmpid: placeId,
+                                        name: newSpotName(),
+                                        latitude: latitude,
+                                        longitude: longitude,
+                                    };
+                                    spot = await create('spots', newSpotData);
+                                }
+                                let Data = {
+                                    ...draft,
+                                    status: '投下済み',
+                                    spot_id: spot.id,
+                                };
+                                await update('messages', draft.id, Data);
+                                let footprintData = {
+                                    ...footprint,
+                                    rights_read: 1,
+                                };
+                                await update('footprints', footprint.id, footprintData);
+                                window.location.href = '/thrown';
+                            } else {
                                 // モーダルを表示する
                                 const modal = document.getElementById('myModal');
                                 modal.classList.remove('hidden');
-                            } else {
-                                // 以前の処理を続ける
-                                const randomIndex = Math.floor(Math.random() * count);
-                                const bottle = messages[randomIndex];
-                                let readerData = {
-                                    ...bottle,
-                                    reader_id: uid,
-                                    status:'収得済み',
-                                };
-                                await update('messages', bottle.id, readerData);
-                                let footprintUpdateData = {
-                                    ...footprint,
-                                    rights_read: 0,
-                                };
-                                await update('footprints', uid, footprintUpdateData);
-                                window.location.href = '/burned';
                             }
                         });
                     });

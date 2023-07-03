@@ -10,7 +10,7 @@ export function getAll(endpoint) {
 
 export function getOne(endpoint, id) {
     return axios.get(`/api/${endpoint}/${id}`)
-      .then(response => response.data)
+      .then(response => response.data ? response.data : undefined)
       .catch(handleError);
 }
 

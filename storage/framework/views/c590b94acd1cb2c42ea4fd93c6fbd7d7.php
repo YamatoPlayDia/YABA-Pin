@@ -92,12 +92,12 @@
                     </button>
                 </div>
             </div>
-            <div class="flex items-center">
-                <img src="assets/img/palebottole.png" alt="Description" class="h-10 w-10">
+            <div class="flex items-center transform rotate-90">
+                <img id="rightsBottle" src="assets/img/palebottole.png" alt="Description" class="w-10">
             </div>
-        </div>        
+        </div>
     </div>
-    
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden bg-white">
         <div class="pt-2 pb-3 space-y-1">

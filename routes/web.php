@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/map_read', function () {
     return view('map_read');
 })->middleware(['auth', 'verified'])->name('map_read');
+Route::get('/map_throw', function () {
+    return view('map_throw');
+})->middleware(['auth', 'verified'])->name('map_throw');
 
 Route::get('/create-spot', function () {
     return view('create_spot');

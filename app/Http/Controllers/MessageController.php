@@ -39,7 +39,7 @@ class MessageController extends Controller
 
     public function getOneByData($dataName, $uniqueData)
     {
-        $result = Message::where($dataName, $uniqueData)->first();
+        $result = Message::where($dataName, $uniqueData)->latest('updated_at')->first();
         return $result ? $result : null; // Return null if no result is found
     }
 
