@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>   
+    <title>Document</title>
      <!-- CSS only -->
      @vite('resources/css/app.css')
      <style>
@@ -32,6 +32,14 @@
             </div>
         </form>
     </div>
+    <script>
+        @if(Auth::check()) <!-- ユーザーが認証されているかチェック -->
+            window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+                'apiToken' => Auth::user()->createToken('Token Name')->plainTextToken // トークンの作成と取得
+            ]) !!};
+        @endif
+    </script>
     <!-- Custom JS -->
     @vite('resources/js/create_message.js')
 </body>

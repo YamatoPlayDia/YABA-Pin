@@ -15,7 +15,7 @@
         <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen"  style="background-image: url('<?php echo e(asset('assets/img/loginimg.png')); ?>'); background-size: cover;">
+        <div class="min-h-screen" style="background-image: url('<?php echo e(asset('assets/img/loginimg.png')); ?>'); background-size: cover;">
             <?php echo $__env->make('layouts.navigation', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
             <!-- Page Heading -->
