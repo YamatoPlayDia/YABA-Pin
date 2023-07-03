@@ -107,7 +107,7 @@ async function initMap() {
         markers.push(markerView);
 
         // Create a circle centered at the current position.
-        const circleRadius = 1000;
+        const circleRadius = 500;
         let circle = new google.maps.Circle({
             strokeColor: '#db8555',
             strokeOpacity: 0.8,
