@@ -23,9 +23,7 @@
                 justify-content: center;
                 align-items: center;
                 line-height: 1.5;
-                font-family: font-family: 'Figtree', sans-serif;
-
-                
+                font-family: font-family: 'Figtree', sans-serif;    
             }
 
             a {
@@ -58,7 +56,7 @@
 			/* padding-top: 5%; */
 			font-size: 1.5em;
 			color: white;
-		}
+		    }
 
             .auth-links {
                 position: absolute;
@@ -115,7 +113,21 @@
                 @endauth
             @endif
         </div>
+        <style>
+            .glowAnime span{opacity: 0;}
+
+            /*アニメーションで透過を0から1に変化させtext-shadowをつける*/
+            .glowAnime.glow span{ animation:glow_anime_on 1s ease-out forwards; }
+
+            @keyframes glow_anime_on{
+                0% { opacity:0; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+                50% { opacity:1;text-shadow: 0 0 10px #fff,0 0 15px #fff; }
+                100% { opacity:1; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+            }
+        </style>
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
         <script src="http://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/move02/8-17/js/8-17.js"></script>
+        <script src="js/top.js"></script>
     </body>
 </html>
