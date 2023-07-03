@@ -15,21 +15,13 @@
             background-size: cover;
         }
 
-        img {
-            transform-origin:0 50%;
-            transform:rotate(-90deg);
-        }
+
     </style>
 </head>
 <body class="flex justify-center">
     <main class="bg-blue-900 bg-opacity-60 flex flex-col min-h-screen w-screen">
         {{-- 秘密を見る権利 --}}
-        <div class="flex justify-end py-1 px-1">
-            {{-- <div>ひろえる！　　</div> --}}
-            <div>
-                <img src="assets/img/kirabottle.png" style="width:42px">
-            </div>
-        </div>
+        @include('components.bottle')
         {{-- メッセージ画面 --}}
         <div class="leading-relaxed text-s text-blue-900 bg-neutral-50 bg-opacity-70 py-4 px-4 mx-4 mt-auto mb-8">
             <p>秘密を瓶に託しました。</p>
