@@ -1,4 +1,4 @@
-// typing.js
+// typing.js //
 window.onload = () => {
     const messageContainer = document.querySelector('.message');
     messageContainer.style.opacity = 1;
@@ -25,6 +25,5 @@ window.onload = () => {
             }
         }
     };
-
     setTimeout(() => typeMessage(pTags[currentTagIndex]), 1000);
 };
