@@ -1,0 +1,11 @@
+/* タイトルが光るcss */
+/* .glowAnime span{opacity: 0;} */
+
+/*アニメーションで透過を0から1に変化させtext-shadowをつける*/
+/* .glowAnime.glow span{ animation:glow_anime_on 1s ease-out forwards; } */
+
+/* @keyframes glow_anime_on{
+  0% { opacity:0; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+  50% { opacity:1;text-shadow: 0 0 10px #fff,0 0 15px #fff; }
+  100% { opacity:1; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+} */
