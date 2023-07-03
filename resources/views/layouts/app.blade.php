@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen"  style="background-image: url('{{ asset('assets/img/loginimg.png') }}'); background-size: cover;">
+        <div class="min-h-screen" style="background-image: url('{{ asset('assets/img/loginimg.png') }}'); background-size: cover;">
             @include('layouts.navigation')
 
             <!-- Page Heading -->

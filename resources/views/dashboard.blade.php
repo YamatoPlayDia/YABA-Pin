@@ -15,13 +15,23 @@
         </div>
 
         <div class="fixed bottom-0 right-0 mb-10 mr-8 z-50">
-            <div class="bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
-                <a href="{{ route('message_insert') }}">ひみつを<br>なげる</a>
+            <div id="throwBtn" class="bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
+                ひみつを<br>なげる
             </div>
-            <div class="mt-8 bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
-                <a href="#">ひみつを<br>ひろう</a>
+            <div id="readBtn" class="mt-8 bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
+                ひみつを<br>ひろう
             </div>
         </div>
-        
     </div>
+    <script>
+        @if(Auth::check()) <!-- ユーザーが認証されているかチェック -->
+            window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+                'apiToken' => Auth::user()->createToken('Token Name')->plainTextToken // トークンの作成と取得
+            ]) !!};
+        @endif
+    </script>
+    @vite('resources/js/app.js')
+    <!-- Custom JS -->
+    @vite('resources/js/dashboard.js')
 </x-app-layout>
