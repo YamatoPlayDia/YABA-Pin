@@ -56,10 +56,10 @@
 
 <body>
 	<ul class="slideshow-fade">
-		<li class="fade"><img src="/assets/img/bottle_m.png" alt="throwing1"></li>
-		<li><img src="/assets/img/bottle_s.png" alt="throwing2"></li>
-		<li><img src="/assets/img/kirari.png" alt="throwing3"></li>
-		<li><img src="/assets/img/pochon.png" alt="throwing4"></li>
+		<li class="fade" data-delay="3000"><img src="/assets/img/bottle_m.png" alt="throwing1"></li>
+		<li data-delay="3000"><img src="/assets/img/bottle_s.png" alt="throwing2"></li>
+		<li data-delay="4000"><img src="/assets/img/kirari.png" alt="throwing3"></li>
+		<li data-delay="4000"><img src="/assets/img/pochon.png" alt="throwing4"></li>
 
 	</ul>
 </body>
@@ -70,11 +70,11 @@
 <script>
 	$(function () {
 		var setImg = '.slideshow-fade';
-		var switchDelay = 5000;
 
 		function slideShow() {
 			var active = $(setImg + ' li.fade');
 			var next = active.next('li').length ? active.next('li') : $(setImg + ' li:first');
+			var switchDelay = next.data('delay') || 4000;  // Get delay from next image, or default to 4000 if no delay is set.
 
 			active.removeClass('fade');
 			next.addClass('fade');
