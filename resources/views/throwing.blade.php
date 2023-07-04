@@ -58,10 +58,11 @@
 
 <body>
 	<ul class="slideshow-fade">
-		<li class="fade" data-delay="3000"><img src="/assets/img/bottle_m.png" alt="throwing1"></li>
-		<li data-delay="3000"><img src="/assets/img/bottle_s.png" alt="throwing2"></li>
-		<li data-delay="4000"><img src="/assets/img/kirari.png" alt="throwing3"></li>
-		<li data-delay="4000"><img src="/assets/img/pochon.png" alt="throwing4"></li>
+		<li class="fade" data-delay="1000"><img src="/assets/img/bottle.png" alt="throwing1"></li>
+		<li data-delay="2000"><img src="/assets/img/bottle_m.png" alt="throwing2"></li>
+		<li data-delay="2500"><img src="/assets/img/bottle_s.png" alt="throwing3"></li>
+		<li data-delay="4000"><img src="/assets/img/kirari.png" alt="throwing4"></li>
+		<li data-delay="4000"><img src="/assets/img/pochon.png" alt="throwing5"></li>
 
 	</ul>
 </body>
@@ -69,13 +70,18 @@
 
 
 <script>
-	$(function () {
+$(function () {
 		var setImg = '.slideshow-fade';
+		var totalTime = 0;
+
+		$(setImg + ' li').each(function() {
+			totalTime += parseInt($(this).data('delay')) || 4000;
+		});
 
 		function slideShow() {
 			var active = $(setImg + ' li.fade');
 			var next = active.next('li').length ? active.next('li') : $(setImg + ' li:first');
-			var switchDelay = next.data('delay') || 4000;  // Get delay from next image, or default to 4000 if no delay is set.
+			var switchDelay = next.data('delay') || 4000;
 
 			active.removeClass('fade');
 			next.addClass('fade');
@@ -84,6 +90,11 @@
 		}
 
 		slideShow();
+
+		// Redirect when total time is passed.
+		setTimeout(function() {
+			window.location.href = '/thrown';
+		}, totalTime);
 	});
 </script>
 	@vite('resources/js/create_message.js')
