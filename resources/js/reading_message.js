@@ -12,7 +12,7 @@ if (!footprint) {
     footprint = await getOne('footprints', uid);
 }
 const lastReadData = await getOneFromData('messages', 'reader_id', uid);
-document.getElementById('himitsu').setAttribute('data-text', lastReadData.himitsu);
+document.getElementById('p1').setAttribute('data-text', lastReadData.himitsu);
 
 document.getElementById('submit').addEventListener('click', function(event) {
     event.preventDefault();

@@ -15,6 +15,18 @@
             background-attachment: fixed;
             background-size: cover;
         }
+        #p1 {
+            text-shadow: 0 0 2px #ffffff;
+            color: transparent;
+            /* Add transition property */
+            transition: text-shadow 1s, color 1s;
+        }
+
+        #p1.transition {
+            text-shadow: 5px 0 10px #2761AA, 0 5px 10px #234898, 0 0 8px #2657A3;
+            color: #ffffff;
+}
+
     </style>
 </head>
 <body class="flex justify-center">
@@ -23,8 +35,8 @@
         @include('components.bottle')
        {{-- メッセージ画面 --}}
         <div class="leading-relaxed text-s text-white py-12 px-12 mx-auto absolute" style="top: 120px; left: 0; right: 0; margin-left: auto; margin-right: auto; height: 320px; width: 350px; background-image: url('assets/img/letter_25.png'); background-size: cover;">
-            <p id="himitsu" data-text=""></p>
-        </div>      
+            <p id="p1" data-text=""></p>
+        </div>
         {{-- ボタン --}}
         <div class="absolute bottom-48 w-full flex justify-center">
             <button id="submit" class="yabapin_btn bg-indigo-900 text-white py-2 px-4 rounded" style="display: none; opacity: 0; transition: opacity 2s;">
@@ -59,6 +71,6 @@
     </script>
     <!-- Custom JS -->
     @vite('resources/js/reading_message.js')
-    @vite('resources/js/typing.js')
+    @vite('resources/js/typing-reading_message.js')
 </body>
 </html>
