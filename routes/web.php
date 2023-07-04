@@ -14,60 +14,57 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-// ログインからダッシュボード
 Route::get('/top_logo', function () {
     return view('top_logo');
 });
 
+
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/map_read', function () {
+    return view('map_read');
+})->middleware(['auth', 'verified'])->name('map_read');
+Route::get('/map_throw', function () {
+    return view('map_throw');
+})->middleware(['auth', 'verified'])->name('map_throw');
+
+Route::get('/create-spot', function () {
+    return view('create_spot');
 });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-// 投げる
-Route::get('/message_insert', function (){
-    return view('message_insert');
-})->middleware(['auth', 'verified'])->name('message_insert');
-
-Route::get('/map_throw', function () {
-    return view('map_throw');
-})->middleware(['auth', 'verified'])->name('map_throw');
-
-Route::get('/throwing', function (){
-    return view('throwing');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+// 画面確認用
 Route::get('/thrown', function (){
     return view('thrown');
 });
 
-// 読む
-Route::get('/map_read', function () {
-    return view('map_read');
-})->middleware(['auth', 'verified'])->name('map_read');
-Route::get('/reading_view', function (){
-    return view('reading_view');
+Route::get('/message_insert', function (){
+    return view('message_insert');
+})->middleware(['auth'])->name('message_insert');
+
+Route::get('/burned', function (){
+    return view('burned');
 });
 Route::get('/burning', function (){
     return view('burning');
 });
-Route::get('/burned', function (){
-    return view('burned');
+Route::get('/throwing', function (){
+    return view('throwing');
 });
 
-
-// 設定用
-Route::get('/create-spot', function () {
-    return view('create_spot');
+Route::get('/reading_view', function (){
+    return view('reading_view');
 });
 
 require __DIR__.'/auth.php';

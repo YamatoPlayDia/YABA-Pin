@@ -1,5 +1,4 @@
 import { mapOptions } from './mapConfig';
-import { sleep } from './functions';
 import { getOneFromData, getMultiFromData, getUserID, getOne, update } from './api.js';
 let map;
 import * as THREE from 'three';
@@ -108,7 +107,7 @@ async function initMap() {
         markers.push(markerView);
 
         // Create a circle centered at the current position.
-        const circleRadius = 300;
+        const circleRadius = 500;
         let circle = new google.maps.Circle({
             strokeColor: '#db8555',
             strokeOpacity: 0.8,
@@ -251,7 +250,6 @@ async function initMap() {
                 // When all the promises are done, sort the data and generate the cards.
                 Promise.all(promises).then(async () => {
                     cardsData.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
-                    document.querySelector('#cards-slider').innerHTML = '';
 
                     for (const cardData of cardsData) {
                         const gmpid = cardData.placeId;
@@ -278,7 +276,6 @@ async function initMap() {
                         } else {
                             cardsContainer.appendChild(cardElement);
                         }
-                        await sleep(100);
                     }
 
                     function generateCard(cardData) {
@@ -288,7 +285,7 @@ async function initMap() {
                                             <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
                                             <div class="p-3 scale">
                                                 <p class="text-xs text-gray-500">${cardData.name} - ${cardData.direction} ${cardData.distance}</p>
-                                                <h2 class="text-base font-semibold">${cardData.nickname}</h2>
+                                                <h2 class="text-lg font-semibold">${cardData.nickname}</h2>
                                                 <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
                                             </div>
                                             <button data-place-id="${cardData.placeId}" style="background-color: ${isPickable ? '#1E2082' : '#6A7280'}" class="${isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${isPickable ? '' : 'disabled'}>ここのひみつをひろう</button>
@@ -333,7 +330,7 @@ async function initMap() {
                                     rights_read: 0,
                                 };
                                 await update('footprints', uid, footprintUpdateData);
-                                window.location.href = '/reading_view';
+                                window.location.href = '/burned';
                             }
                         });
                     });
@@ -357,8 +354,8 @@ async function runInitMapAndToggleButtons() {
     document.getElementById('rotate-left').disabled = false;
     document.getElementById('reload').disabled = false;
 }
-// Create zoom in and zoom out functionalities
-runInitMapAndToggleButtons();
+  // Create zoom in and zoom out functionalities
+// runInitMapAndToggleButtons();
 document.getElementById('rotate-left').addEventListener('click', function() {
     map.setHeading(map.getHeading() - 45);
     model.rotation.y -= Math.PI / 4;

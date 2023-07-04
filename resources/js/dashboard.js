@@ -65,6 +65,6 @@ document.getElementById('readBtn').addEventListener('click', async () => {
     if(!lastReadData || lastReadData.status !== '収得済み') {
         window.location.href = '/map_read';
     } else if ( lastReadData.status === '収得済み' ) {
-        window.location.href = '/reading_view';
+        window.location.href = '/burned';
     }
 });
