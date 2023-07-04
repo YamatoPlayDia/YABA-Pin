@@ -23,7 +23,7 @@
         <form id="messageForm">
             @csrf
             <div class="mb-4">
-                <textarea id="himitsu" name="himitsu" rows="10" class="w-full p-2 border rounded"></textarea>
+                <textarea id="himitsu" name="himitsu" rows="10" class="w-full p-4 border rounded text-gray-700"></textarea>
             </div>
             <input type="hidden" id="writer_id" name="writer_id" value="{{ Auth::id() }}">
             <div class="flex justify-center">
