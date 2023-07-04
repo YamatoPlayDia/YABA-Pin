@@ -70,4 +70,8 @@ Route::get('/create-spot', function () {
     return view('create_spot');
 });
 
+Route::get('/top_logo', function (){
+    return view('top_logo');
+})->name('top_logo');
+
 require __DIR__.'/auth.php';

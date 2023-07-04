@@ -93,12 +93,18 @@
                 background-color: #0056b3;
             }
 
+            .concept {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+            }
         </style>
     </head>
 
     <body>
 
         <div class="main">
+            <p class="concept"><a href="{{ url('/top_logo') }}">concept</a></p>
             <p class="glowAnime">secret bottle</p>
             @if (Route::has('login'))
                 @auth
