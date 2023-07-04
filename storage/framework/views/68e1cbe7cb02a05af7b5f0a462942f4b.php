@@ -11,19 +11,22 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1>Welcome, <?php echo e(auth()->user()->name); ?></h1>
+            <div class="overflow-hidden">
+                <div class="p-6 text-xl text-white message">
+                    <p id="p1" data-text='Welcome, <?php echo e(auth()->user()->name); ?>'></p>
                 </div>
             </div>
         </div>
 
         <div class="fixed bottom-0 right-0 mb-10 mr-8 z-50">
-            <div id="throwBtn" class="bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
-                ひみつを<br>なげる
+            <div id="throwBtn" class="hidden bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
+                <p>秘密を<br>なげる</p>
             </div>
-            <div id="readBtn" class="mt-8 bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
-                ひみつを<br>ひろう
+            <div id="readBtn" class="mt-8 hidden bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
+                <p>秘密を<br>ひろう</p>
+            </div>
+            <div id="readStillBtn" class="mt-8 hidden bg-white overflow-hidden shadow-sm rounded-full w-28 h-28 p-6 text-center flex items-center justify-center">
+                <p>秘密を<br>よむ</p>
             </div>
         </div>
     </div>
@@ -38,6 +41,8 @@
     <?php echo app('Illuminate\Foundation\Vite')('resources/js/app.js'); ?>
     <!-- Custom JS -->
     <?php echo app('Illuminate\Foundation\Vite')('resources/js/dashboard.js'); ?>
+    <?php echo $__env->make('components.bottle', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    <?php echo app('Illuminate\Foundation\Vite')('resources/js/typing.js'); ?>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__componentOriginal9ac128a9029c0e4701924bd2d73d7f54)): ?>

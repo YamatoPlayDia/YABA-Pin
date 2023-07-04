@@ -1,10 +1,15 @@
-import { update, getOneFromData, getUserID, getOne, create } from './api.js';
+import { update, getOneFromData, getUserID, getOne, create, getAll } from './api.js';
 
 async function initialize() {
 const uid = await getUserID();
-let footprint = await getOne('footprints', uid);
 const draft = await getOneFromData('messages', 'writer_id', uid);
 const lastReadData = await getOneFromData('messages', 'reader_id', uid);
+let footprints = await getAll('footprints');
+
+// Find the footprint for the given user ID
+let footprint = footprints.find(footprint => footprint.id === uid);
+
+// If the footprint doesn't exist, create it
 if (!footprint) {
     const newFootprintData = {
         id: uid,
@@ -12,6 +17,8 @@ if (!footprint) {
         rights_read: 0
     };
     await create('footprints', newFootprintData);
+
+    // Get the newly created footprint
     footprint = await getOne('footprints', uid);
 }
 
