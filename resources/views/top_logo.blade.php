@@ -24,11 +24,16 @@
             line-height: 160%;
             color: white;
         }
-
+        .concept {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+        }
      </style>
 </head>
 <body class="flex justify-center">
     <main class="introduction_back">
+        <p class="concept"><a href="{{ url('/') }}">back</a></p>
         {{-- <div>
             <img src="assets/img/basic.png" alt="ひみつ表紙">
         </div> --}}
@@ -39,7 +44,7 @@
                 実は吐き出してしまいたい秘密もあるに違いない。<br>
                 <br>
                 さあ、心の澱になっているダークな秘密は街の雑踏に投げ捨ててしまおう。
-                秘密は、地図に瓶に保存され 
+                秘密は、地図に瓶に保存され
                 誰かが取り出すまでこの世の波に漂っている。
                 秘密を投げ出した人は、他人のボトルを拾い、
                 読むことで、誰か知らない人の秘密を共有することになる。<br>
@@ -60,7 +65,7 @@
     {{-- <style>
         .introduction_back {
             position: relative;
-        }    
+        }
         .introduction_text {
             position: absolute;
             top: 50%;
@@ -69,7 +74,7 @@
             color: white;
             text-align: left;
             font-size: 12.5px;
-            line-height: 2; 
+            line-height: 2;
         }
     </style> --}}
 </body>

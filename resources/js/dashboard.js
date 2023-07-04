@@ -18,20 +18,23 @@ if (!footprint) {
 if( !lastReadData || lastReadData.status !== '収得済み' ){
     if( footprint.rights_read == 1 ){
         document.getElementById('rightsBottle').setAttribute('src', 'img/kara_fullbottle.png');
-        document.getElementById('readBtn').style.display = 'block';
+        document.getElementById('readBtn').classList.remove('hidden');
+        document.getElementById('throwBtn').classList.remove('hidden');
     }
     else if( footprint.rights_read == 0 ){
         document.getElementById('rightsBottle').setAttribute('src', 'img/kara_karabottle.png');
-        document.getElementById('readBtn').style.display = 'none';
+        document.getElementById('throwBtn').classList.remove('hidden');
     }
 } else if( lastReadData.status === '収得済み' ){
     if( footprint.rights_read == 1 ){
         document.getElementById('rightsBottle').setAttribute('src', 'img/kara_fullbottle.png');
-        document.getElementById('readBtn').style.display = 'block';
+        document.getElementById('readBtn').classList.remove('hidden');
+        document.getElementById('throwBtn').classList.remove('hidden');
     }
     else if( footprint.rights_read == 0 ){
         document.getElementById('rightsBottle').setAttribute('src', 'img/kara_karabottle.png');
-        document.getElementById('readBtn').style.display = 'block';
+        document.getElementById('readStillBtn').classList.remove('hidden');
+        document.getElementById('throwBtn').classList.remove('hidden');
     }
 } else {
     const handleFootprintData = {
@@ -40,7 +43,7 @@ if( !lastReadData || lastReadData.status !== '収得済み' ){
     };
     await update('footprints', uid, handleFootprintData);
     document.getElementById('rightsBottle').setAttribute('src', 'assets/img/palebottole.png');
-    document.getElementById('readBtn').style.display = 'none';
+    document.getElementById('throwBtn').classList.remove('hidden');
 }
 
 
@@ -61,6 +64,15 @@ document.getElementById('throwBtn').addEventListener('click', async () => {
 
 
 document.getElementById('readBtn').addEventListener('click', async () => {
+    // 前提として、draftが適切に定義されていると仮定します
+    if(!lastReadData || lastReadData.status !== '収得済み') {
+        window.location.href = '/map_read';
+    } else if ( lastReadData.status === '収得済み' ) {
+        window.location.href = '/reading_view';
+    }
+});
+
+document.getElementById('readStillBtn').addEventListener('click', async () => {
     // 前提として、draftが適切に定義されていると仮定します
     if(!lastReadData || lastReadData.status !== '収得済み') {
         window.location.href = '/map_read';
