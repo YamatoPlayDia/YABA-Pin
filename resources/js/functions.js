@@ -11,3 +11,8 @@ function getRandomWord(wordList) {
 export function newSpotName() {
     return `${getRandomWord(words)}と${getRandomWord(words)}の${getRandomWord(water)}`;
 }
+
+// sleep関数を定義します。msミリ秒後に解決するPromiseを返します。
+export function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

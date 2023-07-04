@@ -71,20 +71,33 @@
 <script>
 	$(function () {
 		var setImg = '.slideshow-fade';
+		var totalTime = 0;
+
+		$(setImg + ' li').each(function() {
+			totalTime += parseInt($(this).data('delay')) || 4000;
+		});
 
 		function slideShow() {
 			var active = $(setImg + ' li.fade');
-			var next = active.next('li').length ? active.next('li') : $(setImg + ' li:first');
-			var switchDelay = next.data('delay') || 4000;  // Get delay from next image, or default to 4000 if no delay is set.
+			var next = active.next('li').length ? active.next('li') : null; // if no next slide, set to null
+			var switchDelay = next ? (next.data('delay') || 4000) : 0; // if no next slide, set delay to 0
 
-			active.removeClass('fade');
-			next.addClass('fade');
-
-			setTimeout(slideShow, switchDelay);
+			// Only remove the 'fade' class if there is a next slide.
+			if (next) {
+				active.removeClass('fade');
+				next.addClass('fade');
+				setTimeout(slideShow, switchDelay);
+			}
 		}
 
 		slideShow();
+
+		// Redirect when total time is passed.
+		setTimeout(function() {
+			window.location.href = '/burned';
+		}, totalTime);
 	});
+
 </script>
 @vite('resources/js/app.js')
 
