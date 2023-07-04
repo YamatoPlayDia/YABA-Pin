@@ -37,5 +37,6 @@
     @vite('resources/js/app.js')
     <!-- Custom JS -->
     @vite('resources/js/dashboard.js')
+    @include('components.bottle')
     @vite('resources/js/typing.js')
 </x-app-layout>
