@@ -91,26 +91,24 @@ async function initMap() {
         map = new Map(document.getElementById("map"), mapOptions(currentPosition, initialHeading));
         // Set a pin on the current location.
 
-        const pin = new PinElement({
-            background: "#db8555",
-            borderColor: "#f8c967",
-            glyphColor: "#f8c967",
-            scale: 2.0,
-        });
-
         let markers = [];
 
-        // そして、各マーカーを作成するときにその配列に追加します：
+        const imageDuckPinElement = document.createElement('img');
+        imageDuckPinElement.src = 'img/duckpin.svg';
+        imageDuckPinElement.style.width = '52px';
+        imageDuckPinElement.style.height = '148px';
+
         const markerView = new AdvancedMarkerElement({
             map,
-            content: pin.element,
+            content: imageDuckPinElement,
             position: currentPosition,
+            zIndex: 999 // この値を他のマーカーよりも大きく設定
         });
 
         markers.push(markerView);
 
         // Create a circle centered at the current position.
-        const circleRadius = 300;
+        const circleRadius = 250;
         let circle = new google.maps.Circle({
             strokeColor: '#db8555',
             strokeOpacity: 0.8,
@@ -147,9 +145,9 @@ async function initMap() {
 
             // Create SVG for the marker
             const directionSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="24" font-weight="bold" stroke="#f8c967" stroke-width="1" fill="#db8555" fill-opacity="0.8">${direction}</text></svg>`;
-
+            let directionMarker;
             // Create the marker for the direction
-            const directionMarker = new google.maps.Marker({
+            directionMarker = new google.maps.Marker({
                 position: point,
                 map,
                 icon: {
@@ -183,7 +181,7 @@ async function initMap() {
 
                     let isInCircle = google.maps.geometry.spherical.computeDistanceBetween(results[i].geometry.location, circle.getCenter()) <= circle.getRadius();
                     const imageElement = document.createElement('img');
-                    imageElement.src = isInCircle ? 'img/kirabottle.png' : 'img/palebottole.png';
+                    imageElement.src = 'img/palebottole.png';
                     imageElement.style.width = '40px';
                     imageElement.style.height = '80px';
 
@@ -266,31 +264,56 @@ async function initMap() {
 
                         const nickname = data?.name || 'みかいたくのち';
                         const spotId = data?.id;
-                        const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && cardData.msgCount >= 1;
                         let msgCount = 0;
+                        let isPickable = false;
 
                         // Check if data exists before fetching messages
                         if (data) {
                             // Find the messages for this spot from the fetched messages data
                             const res = messagesData.filter(message => message.spot_id === spotId);
                             msgCount = res ? res.filter(msgData => msgData.status === '投下済み' && msgData.writer_id !== uid).length : 0;
+                            isPickable = cardData.isInCircle && footprint.rights_read >= 1 && msgCount >= 1;
+                            if (isPickable) {
+                                const markerToChange = markersByPlaceId[gmpid];
+                                // Somewhere else in your code, where you check if `isPickable` is true
+                                if (markerToChange) {
+                                        // Remove the old marker
+                                    markerToChange.setMap(null);
+
+                                    // Create a new image element
+                                    const newImageElement = document.createElement('img');
+                                    newImageElement.src = 'img/kirabottle.png';
+                                    newImageElement.style.width = '40px';
+                                    newImageElement.style.height = '80px';
+
+                                    // Create a new marker with the new image
+                                    const newMarker = new AdvancedMarkerElement({
+                                        map,
+                                        content: newImageElement,
+                                        position: markerToChange.position,  // Assuming the marker has a `position` property
+                                    });
+
+                                    // Replace the old marker with the new one
+                                    markersByPlaceId[gmpid] = newMarker;
+                                }
+                            }
                         }
 
                         const newCardData = { ...cardData, nickname, msgCount, isPickable };
+
                         generateCard(newCardData);
                         await sleep(100);
                     }
 
                     function generateCard(cardData) {
-                        const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && cardData.msgCount >= 1;
                         const cardHtml = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
                                             <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
                                             <div class="p-3 scale">
                                                 <p class="text-xs text-gray-500">${truncate(cardData.name, 12)} - ${cardData.direction} ${cardData.distance}</p>
-                                                <h2 class="text-base font-semibold">${truncate(cardData.nickname, 12)}</h2>
+                                                <h2 class="text-base text-gray-700 font-semibold">${truncate(cardData.nickname, 12)}</h2>
                                                 <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
                                             </div>
-                                            <button data-place-id="${cardData.placeId}" style="background-color: ${isPickable ? '#1E2082' : '#6A7280'}" class="${isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${isPickable ? '' : 'disabled'}>ここのひみつをひろう</button>
+                                            <button data-place-id="${cardData.placeId}" style="background-color: ${cardData.isPickable ? '#1E2082' : '#6A7280'}" class="${cardData.isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${cardData.isPickable ? '' : 'disabled'}>ここのひみつをひろう</button>
                                         </div>`;
                         document.querySelector('#cards-slider').innerHTML += cardHtml;
                     }
