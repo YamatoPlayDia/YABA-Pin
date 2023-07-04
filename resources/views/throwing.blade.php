@@ -58,7 +58,7 @@
 
 <body>
 	<ul class="slideshow-fade">
-		<li class="fade" data-delay="1000"><img src="/assets/img/bottle.png" alt="throwing1"></li>
+		<li class="fade" data-delay="2000"><img src="/assets/img/bottle.png" alt="throwing1"></li>
 		<li data-delay="2000"><img src="/assets/img/bottle_m.png" alt="throwing2"></li>
 		<li data-delay="2500"><img src="/assets/img/bottle_s.png" alt="throwing3"></li>
 		<li data-delay="4000"><img src="/assets/img/kirari.png" alt="throwing4"></li>
