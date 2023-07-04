@@ -53,7 +53,7 @@
     "src": "resources/js/create_spot.js"
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-ffbdafd3.js",
+    "file": "assets/dashboard-2d5c7782.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -120,7 +120,7 @@
     "src": "resources/js/model.js"
   },
   "resources/js/reading_message.js": {
-    "file": "assets/reading_message-943403d1.js",
+    "file": "assets/reading_message-a8582c72.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
