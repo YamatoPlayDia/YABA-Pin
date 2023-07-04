@@ -21,6 +21,7 @@ document.getElementById('messageForm').addEventListener('submit', function(event
     let himitsu = document.getElementById('himitsu').value;
 
     let data = {
+        ...draft,
         writer_id: writer_id,
         himitsu: himitsu,
         status: '下書き'
@@ -28,7 +29,6 @@ document.getElementById('messageForm').addEventListener('submit', function(event
 
     update('messages', draft.id, data).then(data => {
         console.log('Success:', data);
-        alert('Message created successfully');
     });
     window.location.href = '/map_throw';
 });
