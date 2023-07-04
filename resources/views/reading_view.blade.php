@@ -28,7 +28,7 @@
         {{-- ボタン --}}
         <div class="absolute bottom-48 w-full flex justify-center">
             <button id="submit" class="yabapin_btn bg-indigo-900 text-white py-2 px-4 rounded" style="display: none; opacity: 0; transition: opacity 2s;">
-                秘密を手放す
+                秘密を胸にしまう
             </button>
         </div>
     </main>
