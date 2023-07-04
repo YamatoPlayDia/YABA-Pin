@@ -45,10 +45,10 @@ Route::get('/map_throw', function () {
 
 Route::get('/throwing', function (){
     return view('throwing');
-});
+})->middleware(['auth', 'verified'])->name('throwing');
 Route::get('/thrown', function (){
     return view('thrown');
-});
+})->middleware(['auth', 'verified'])->name('thrown');
 
 // 読む
 Route::get('/map_read', function () {
@@ -56,13 +56,13 @@ Route::get('/map_read', function () {
 })->middleware(['auth', 'verified'])->name('map_read');
 Route::get('/reading_view', function (){
     return view('reading_view');
-});
+})->middleware(['auth', 'verified'])->name('reading_view');
 Route::get('/burning', function (){
     return view('burning');
-});
+})->middleware(['auth', 'verified'])->name('burning');
 Route::get('/burned', function (){
     return view('burned');
-});
+})->middleware(['auth', 'verified'])->name('burned');;
 
 
 // 設定用
