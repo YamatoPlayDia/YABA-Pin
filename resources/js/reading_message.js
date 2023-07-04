@@ -11,7 +11,7 @@ if (!footprint) {
     await create('footprints', newFootprintData);
     footprint = await getOne('footprints', uid);
 }
-const lastReadData = await getOneFromData('messages', 'writer_id', uid);
+const lastReadData = await getOneFromData('messages', 'reader_id', uid);
 document.getElementById('himitsu').setAttribute('data-text', lastReadData.himitsu);
 
 document.getElementById('submit').addEventListener('click', function(event) {
@@ -26,6 +26,7 @@ document.getElementById('submit').addEventListener('click', function(event) {
         });
         window.location.href = '/burning';
     } else {
-        document.getElementById('burnedBtn').innerHTML = '再読み込みください';
+        const modal = document.getElementById('myModal');
+        modal.classList.remove('hidden');
     }
 });

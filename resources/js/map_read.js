@@ -1,6 +1,6 @@
 import { mapOptions } from './mapConfig';
-import { sleep } from './functions';
-import { getOneFromData, getMultiFromData, getUserID, getOne, update } from './api.js';
+import { sleep, truncate } from './functions';
+import { getAll, getMultiFromData, getUserID, getOne, update } from './api.js';
 let map;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
@@ -253,9 +253,15 @@ async function initMap() {
                     cardsData.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
                     document.querySelector('#cards-slider').innerHTML = '';
 
+                    const spotsData = await getAll('spots');  // Fetch all spots data once
+                    const messagesData = await getAll('messages');  // Fetch all messages data once
+
                     for (const cardData of cardsData) {
                         const gmpid = cardData.placeId;
-                        const data = await getOneFromData('spots', 'gmpid', gmpid);
+
+                        // Find the data from the fetched spots data
+                        const data = spotsData.find(spot => spot.gmpid === gmpid);
+
                         const nickname = data?.name || 'みかいたくのち';
                         const spotId = data?.id;
                         const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && cardData.msgCount >= 1;
@@ -263,37 +269,28 @@ async function initMap() {
 
                         // Check if data exists before fetching messages
                         if (data) {
-                            const res = await getMultiFromData('messages', 'spot_id', spotId);
-                            msgCount = res ? res.length : 0;
+                            // Find the messages for this spot from the fetched messages data
+                            const res = messagesData.filter(message => message.spot_id === spotId);
+                            msgCount = res ? res.filter(msgData => msgData.status === '投下済み' && msgData.writer_id !== uid).length : 0;
                         }
 
                         const newCardData = { ...cardData, nickname, msgCount, isPickable };
-                        const cardElement = generateCard(newCardData);
-
-                        // If data is present, insert at the beginning of the cards container, else append at the end.
-                        const cardsContainer = document.querySelector('#cards-slider');
-
-                        if (isPickable) {
-                            cardsContainer.insertBefore(cardElement, cardsContainer.firstChild);
-                        } else {
-                            cardsContainer.appendChild(cardElement);
-                        }
+                        generateCard(newCardData);
                         await sleep(100);
                     }
 
                     function generateCard(cardData) {
                         const isPickable = cardData.isInCircle && footprint.rights_read >= 1 && cardData.msgCount >= 1;
-                        const card = document.createElement('div');
-                        card.innerHTML = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
+                        const cardHtml = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
                                             <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
                                             <div class="p-3 scale">
-                                                <p class="text-xs text-gray-500">${cardData.name} - ${cardData.direction} ${cardData.distance}</p>
-                                                <h2 class="text-base font-semibold">${cardData.nickname}</h2>
+                                                <p class="text-xs text-gray-500">${truncate(cardData.name, 12)} - ${cardData.direction} ${cardData.distance}</p>
+                                                <h2 class="text-base font-semibold">${truncate(cardData.nickname, 12)}</h2>
                                                 <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
                                             </div>
                                             <button data-place-id="${cardData.placeId}" style="background-color: ${isPickable ? '#1E2082' : '#6A7280'}" class="${isPickable ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${isPickable ? '' : 'disabled'}>ここのひみつをひろう</button>
                                         </div>`;
-                        return card.firstChild;
+                        document.querySelector('#cards-slider').innerHTML += cardHtml;
                     }
                     const scaleElements = document.querySelectorAll('.card .scale');
                     scaleElements.forEach(element => {
@@ -310,9 +307,10 @@ async function initMap() {
                     const buttons = document.querySelectorAll('.pickup-button');
                     buttons.forEach(button => {
                         button.addEventListener('click', async (event) => {
-                            const placeId = event.target.getAttribute('data-place-id');
-                            const spot = await getOneFromData('spots', 'gmpid', placeId);
-                            const messages = await getMultiFromData('messages', 'spot_id', spot.id);
+                            const gmpid = event.target.getAttribute('data-place-id');
+                            const spotData = spotsData.find(spot => spot.gmpid === gmpid);
+                            let messages = await getMultiFromData('messages', 'spot_id', spotData.id);
+                            messages = messages.filter(message => message.status === '投下済み' && message.writer_id !== uid);
                             const count = messages.length;
                             if (count <= 0 || footprint.rights_read <= 0) {
                                 // モーダルを表示する
