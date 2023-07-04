@@ -63,7 +63,6 @@
 		<li data-delay="2500"><img src="/assets/img/bottle_s.png" alt="throwing3"></li>
 		<li data-delay="4000"><img src="/assets/img/kirari.png" alt="throwing4"></li>
 		<li data-delay="4000"><img src="/assets/img/pochon.png" alt="throwing5"></li>
-
 	</ul>
 </body>
 
