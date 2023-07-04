@@ -93,6 +93,12 @@
 				window.location.href = '/thrown';
 			}, totalTime);
 		});
+        @if(Auth::check()) <!-- ユーザーが認証されているかチェック -->
+            window.Laravel = {!! json_encode([
+                'csrfToken' => csrf_token(),
+                'apiToken' => Auth::user()->createToken('Token Name')->plainTextToken // トークンの作成と取得
+            ]) !!};
+        @endif
 	</script>
 	@vite('resources/js/app.js')
 </body>

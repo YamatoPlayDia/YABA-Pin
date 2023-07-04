@@ -9,6 +9,7 @@
     @vite('resources/css/map.css')
 </head>
 <body>
+    @include('components.bottle')
 <div id="3d-model" class="overlay"></div>
 <div id="map-container">
     <div id="map"></div>

@@ -1,6 +1,6 @@
 import { mapOptions } from './mapConfig';
-import { newSpotName, sleep } from './functions';
-import { getOneFromData, getMultiFromData, getUserID, update, create, getOne } from './api.js';
+import { newSpotName, sleep, truncate } from './functions';
+import { getOneFromData, getAll, getUserID, update, create, getOne } from './api.js';
 let map;
 import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
@@ -255,46 +255,43 @@ async function initMap() {
                 Promise.all(promises).then(async () => {
                     cardsData.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
                     document.querySelector('#cards-slider').innerHTML = '';
+                    const spotsData = await getAll('spots');  // Fetch all spots data once
+                    console.log(spotsData);
+                    const messagesData = await getAll('messages');  // Fetch all messages data once
+                    console.log(messagesData);
 
                     for (const cardData of cardsData) {
                         const gmpid = cardData.placeId;
-                        const data = await getOneFromData('spots', 'gmpid', gmpid);
+
+                        // Find the data from the fetched spots data
+                        const data = spotsData.find(spot => spot.gmpid === gmpid);
+
                         const nickname = data?.name || 'みかいたくのち';
                         const spotId = data?.id;
                         let msgCount = 0;
 
                         // Check if data exists before fetching messages
                         if (data) {
-                            const res = await getMultiFromData('messages', 'spot_id', spotId);
-                            msgCount = res ? res.length : 0;
+                            // Find the messages for this spot from the fetched messages data
+                            const res = messagesData.filter(message => message.spot_id === spotId);
+                            msgCount = res ? res.filter(msgData => msgData.status === '投下済み' && msgData.writer_id !== uid).length : 0;
                         }
 
                         const newCardData = { ...cardData, nickname, msgCount };
-                        const cardElement = generateCard(newCardData);
-
-                        // If data is present, insert at the beginning of the cards container, else append at the end.
-                        const cardsContainer = document.querySelector('#cards-slider');
-
-                        if (cardData.isInCircle) {
-                            cardsContainer.insertBefore(cardElement, cardsContainer.firstChild);
-                        } else {
-                            cardsContainer.appendChild(cardElement);
-                        }
+                        generateCard(newCardData);
                         await sleep(100);
                     }
 
                     function generateCard(cardData) {
-                        const card = document.createElement('div');
-                        card.innerHTML = `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
-                                            <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
-                                            <div class="p-3 scale">
-                                                <p class="text-xs text-gray-500">${cardData.name} - ${cardData.direction} ${cardData.distance}</p>
-                                                <h2 class="text-base font-semibold">${cardData.nickname}</h2>
-                                                <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
-                                            </div>
-                                            <button data-place-id="${cardData.placeId}" data-place-lat="${cardData.latitude}" data-place-lng="${cardData.longitude}" style="background-color: ${cardData.isInCircle ? '#1E2082' : '#6A7280'}" class="${cardData.isInCircle ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>ここに秘密をなげる</button>
-                                        </div>`;
-                        return card.firstChild;
+                        document.querySelector('#cards-slider').innerHTML += `<div style="background-color: ${cardData.isInCircle ? '#FFFFFF' : '#E5E7EB'}" class="card flex-none w-64 h-48 mr-4 mb-4 rounded-xl shadow-lg flex flex-col justify-between" data-place-id="${cardData.placeId}">
+                                <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
+                                <div class="p-3 scale">
+                                    <p class="text-xs text-gray-500">${truncate(cardData.name, 12)} - ${cardData.direction} ${cardData.distance}</p>
+                                    <h2 class="text-base font-semibold">${truncate(cardData.nickname, 12)}</h2>
+                                    <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
+                                </div>
+                                <button data-place-id="${cardData.placeId}" data-place-lat="${cardData.latitude}" data-place-lng="${cardData.longitude}" style="background-color: ${cardData.isInCircle ? '#1E2082' : '#6A7280'}" class="${cardData.isInCircle ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>ここに秘密をなげる</button>
+                            </div>`;
                     }
                     const scaleElements = document.querySelectorAll('.card .scale');
                     scaleElements.forEach(element => {

@@ -17,20 +17,20 @@ if (!footprint) {
 
 if( !lastReadData || lastReadData.status !== '収得済み' ){
     if( footprint.rights_read == 1 ){
-        document.getElementById('rightsBottle').setAttribute('src', 'assets/img/kirabottle.png');
+        document.getElementById('rightsBottle').setAttribute('src', 'img/kara_fullbottle.png');
         document.getElementById('readBtn').style.display = 'block';
     }
     else if( footprint.rights_read == 0 ){
-        document.getElementById('rightsBottle').setAttribute('src', 'assets/img/palebottole.png');
+        document.getElementById('rightsBottle').setAttribute('src', 'img/kara_karabottle.png');
         document.getElementById('readBtn').style.display = 'none';
     }
 } else if( lastReadData.status === '収得済み' ){
     if( footprint.rights_read == 1 ){
-        document.getElementById('rightsBottle').setAttribute('src', 'assets/img/kirabottle.png');
+        document.getElementById('rightsBottle').setAttribute('src', 'img/kara_fullbottle.png');
         document.getElementById('readBtn').style.display = 'block';
     }
     else if( footprint.rights_read == 0 ){
-        document.getElementById('rightsBottle').setAttribute('src', 'assets/img/palebottole.png');
+        document.getElementById('rightsBottle').setAttribute('src', 'img/kara_karabottle.png');
         document.getElementById('readBtn').style.display = 'block';
     }
 } else {
@@ -49,7 +49,7 @@ document.getElementById('throwBtn').addEventListener('click', async () => {
     if( !draft || draft.status !== '下書き') {
         const data = {
             writer_id: uid,
-            himitsu: 'あなたのひみつをここにおかきください',
+            himitsu: 'あなたの秘密をここにお書きください',
             status: '下書き'
         };
         await create('messages', data);
