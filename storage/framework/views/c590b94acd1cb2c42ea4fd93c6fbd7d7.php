@@ -92,9 +92,7 @@
                     </button>
                 </div>
             </div>
-            <div class="flex items-center transform rotate-90">
-                <img id="rightsBottle" src="assets/img/palebottole.png" alt="Description" class="w-10">
-            </div>
+                <?php echo $__env->make('components.bottle', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
 

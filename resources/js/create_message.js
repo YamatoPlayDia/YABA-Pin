@@ -1,5 +1,5 @@
 import { update, getOneFromData, getUserID, getOne } from './api.js';
-
+async function initialize() {
 const uid = await getUserID();
 let footprint = await getOne('footprints', uid);
 if (!footprint) {
@@ -32,3 +32,6 @@ document.getElementById('messageForm').addEventListener('submit', function(event
     });
     window.location.href = '/map_throw';
 });
+}
+
+initialize();

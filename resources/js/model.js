@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 let scene, camera, renderer, model;
-
+async function initialize() {
 // Initialize the scene, camera, and renderer.
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -44,3 +44,6 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+}
+
+initialize();

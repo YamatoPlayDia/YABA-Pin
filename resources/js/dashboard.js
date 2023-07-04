@@ -1,6 +1,6 @@
 import { update, getOneFromData, getUserID, getOne, create } from './api.js';
 
-
+async function initialize() {
 const uid = await getUserID();
 let footprint = await getOne('footprints', uid);
 const draft = await getOneFromData('messages', 'writer_id', uid);
@@ -68,3 +68,6 @@ document.getElementById('readBtn').addEventListener('click', async () => {
         window.location.href = '/reading_view';
     }
 });
+}
+
+initialize();

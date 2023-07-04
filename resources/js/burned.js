@@ -1,6 +1,6 @@
 import { getUserID, getOne } from './api.js';
 
-
+async function initialize() {
 const uid = await getUserID();
 let footprint = await getOne('footprints', uid);
 if (!footprint) {
@@ -12,3 +12,6 @@ if (!footprint) {
     await create('footprints', newFootprintData);
     footprint = await getOne('footprints', uid);
 }
+}
+
+initialize();
