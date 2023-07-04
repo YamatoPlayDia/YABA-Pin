@@ -58,11 +58,11 @@
 
 <body>
 	<ul class="slideshow-fade">
-		<li class="fade" data-delay="4000"><img src="/assets/img/letter.png" alt="burning1"></li>
-		<li data-delay="2000"><img src="/assets/img/sky.png" alt="burning2"></li>
+		<li class="fade" data-delay="1000"><img src="/assets/img/letter.png" alt="burning1"></li>
+		<li data-delay="1000"><img src="/assets/img/sky.png" alt="burning2"></li>
 		<li data-delay="3000"><img src="/assets/img/gusha.png" alt="burning3"></li>
 		<li data-delay="4000"><img src="/assets/img/fire.png" alt="burning4"></li>
-		<li data-delay="4000"><img src="/assets/img/sky.png" alt="burning5"></li>
+		<li data-delay="3000"><img src="/assets/img/sky.png" alt="burning5"></li>
 	</ul>
 </body>
 
@@ -90,7 +90,10 @@
 			}
 		}
 
-		slideShow();
+		// Get the delay for the first slide
+		var firstSlideDelay = $(setImg + ' li').first().data('delay') || 4000;
+		// Start the slideShow function after the first slide's delay
+		setTimeout(slideShow, firstSlideDelay);
 
 		// Redirect when total time is passed.
 		setTimeout(function() {

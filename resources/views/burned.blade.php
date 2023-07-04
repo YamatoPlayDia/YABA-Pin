@@ -22,14 +22,14 @@
         @include('components.bottle')
 
         {{-- メッセージ画面 --}}
-        <div class=" message leading-relaxed text-s text-blue-900 bg-neutral-50 bg-opacity-70 py-4 px-4 mx-4 mt-auto mb-8" style="height: 100px; opacity: 0; transition: opacity 2s;">
+        <div class=" message leading-relaxed text-s text-blue-900 bg-neutral-50 bg-opacity-70 py-4 px-4 mx-4 mt-auto mb-4" style="height: 100px; opacity: 0; transition: opacity 2s;">
             <p id="p1" data-text="秘密は消えてしまいました。"></p>
             <p id="p2" data-text="また新たな秘密を瓶に託しましょう…"></p>
         </div>
-         <div class="fixed bottom-2 right-4 z-50">
-            <a href="{{ route('dashboard') }}" class="inline-block text-blue-300 hover:underline">
-            Click to top
-            </a>
+        <div class="flex justify-center mb-8">
+            <button type="submit" class="bg-indigo-900 text-white py-2 px-4 rounded">
+                <a href="{{ route('dashboard') }}">Click to top</a>
+            </button>
         </div>
     </main>
     <script>

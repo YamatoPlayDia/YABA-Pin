@@ -7,6 +7,7 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 let scene, camera, renderer, model;
 
+async function initialize() {
 const uid = await getUserID();
 let footprint = await getOne('footprints', uid);
 if (!footprint) {
@@ -382,3 +383,6 @@ document.getElementById('reload').addEventListener('click', async function() {
     await runInitMapAndToggleButtons();
     model.rotation.y = Math.PI;
 });
+}
+
+initialize();
