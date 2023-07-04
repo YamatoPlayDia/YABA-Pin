@@ -16,3 +16,15 @@ export function newSpotName() {
 export function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function truncate(str, len) {
+    let strLen = 0;
+    let i;
+    for (i = 0; i < str.length; i++) {
+        strLen += str.charCodeAt(i) < 256 ? 0.5 : 1;
+        if (strLen > len) {
+            break;
+        }
+    }
+    return strLen > len ? str.slice(0, i) + '…' : str;
+}

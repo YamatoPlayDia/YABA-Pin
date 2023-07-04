@@ -60,9 +60,7 @@
                     </button>
                 </div>
             </div>
-            <div class="flex items-center transform rotate-90">
-                <img id="rightsBottle" src="assets/img/palebottole.png" alt="Description" class="w-10">
-            </div>
+                @include('components.bottle')
         </div>
     </div>
 

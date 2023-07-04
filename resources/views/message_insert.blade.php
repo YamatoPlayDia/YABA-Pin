@@ -19,6 +19,7 @@
 <body class="flex items-center justify-cente bg-blue-500 min-h-screen px-2 lg:px-0">
     {{-- フォーム --}}
     <div class="p-6 w-full">
+        @include('components.bottle')
         <form id="messageForm">
             @csrf
             <div class="mb-4">
