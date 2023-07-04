@@ -1,1 +1,0 @@
-import{g as r,a}from"./api-03a3d816.js";import"./functions-5aea6087.js";async function n(){const t=await r();let i=await a("footprints",t);if(!i){const o={id:t,rights_write:1,rights_read:0};await create("footprints",o),i=await a("footprints",t)}}n();

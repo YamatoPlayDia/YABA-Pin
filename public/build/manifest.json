@@ -3,7 +3,7 @@
     "file": "assets/OBJLoader-c0df76fe.js"
   },
   "resources/css/app.css": {
-    "file": "assets/app-0857bc3e.css",
+    "file": "assets/app-434d4c5b.css",
     "isEntry": true,
     "src": "resources/css/app.css"
   },
@@ -13,7 +13,7 @@
     "src": "resources/css/map.css"
   },
   "resources/js/api.js": {
-    "file": "assets/api-03a3d816.js",
+    "file": "assets/api-e53b87f9.js",
     "imports": [
       "resources/js/functions.js"
     ],
@@ -26,7 +26,7 @@
     "src": "resources/js/app.js"
   },
   "resources/js/burned.js": {
-    "file": "assets/burned-7b73ab78.js",
+    "file": "assets/burned-ca346db3.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -35,7 +35,7 @@
     "src": "resources/js/burned.js"
   },
   "resources/js/create_message.js": {
-    "file": "assets/create_message-d728df5e.js",
+    "file": "assets/create_message-3b56060f.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -44,7 +44,7 @@
     "src": "resources/js/create_message.js"
   },
   "resources/js/create_spot.js": {
-    "file": "assets/create_spot-5f0f2017.js",
+    "file": "assets/create_spot-4163e859.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -53,7 +53,7 @@
     "src": "resources/js/create_spot.js"
   },
   "resources/js/dashboard.js": {
-    "file": "assets/dashboard-2d5c7782.js",
+    "file": "assets/dashboard-8269ef9f.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -67,7 +67,7 @@
     "src": "resources/js/functions.js"
   },
   "resources/js/index.js": {
-    "file": "assets/index-55de4017.js",
+    "file": "assets/index-b5c95422.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -76,7 +76,7 @@
     "src": "resources/js/index.js"
   },
   "resources/js/kara_kira.js": {
-    "file": "assets/kara_kira-c765cc88.js",
+    "file": "assets/kara_kira-5e937501.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
@@ -90,7 +90,7 @@
     "src": "resources/js/mapConfig.js"
   },
   "resources/js/map_read.js": {
-    "file": "assets/map_read-b67ab2a9.js",
+    "file": "assets/map_read-b98187f2.js",
     "imports": [
       "resources/js/mapConfig.js",
       "resources/js/functions.js",
@@ -101,7 +101,7 @@
     "src": "resources/js/map_read.js"
   },
   "resources/js/map_throw.js": {
-    "file": "assets/map_throw-bdca389b.js",
+    "file": "assets/map_throw-87d6c778.js",
     "imports": [
       "resources/js/mapConfig.js",
       "resources/js/functions.js",
@@ -120,7 +120,7 @@
     "src": "resources/js/model.js"
   },
   "resources/js/reading_message.js": {
-    "file": "assets/reading_message-a8582c72.js",
+    "file": "assets/reading_message-11c977b6.js",
     "imports": [
       "resources/js/api.js",
       "resources/js/functions.js"
