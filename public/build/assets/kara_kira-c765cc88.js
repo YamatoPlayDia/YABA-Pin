@@ -1,0 +1,1 @@
+import{g as i,a as r}from"./api-03a3d816.js";import"./functions-5aea6087.js";async function a(){const e=await i(),t=await r("footprints",e);t.rights_read==1?document.getElementById("rightsBottle").setAttribute("src","img/kara_fullbottle.png"):t.rights_read==0&&document.getElementById("rightsBottle").setAttribute("src","img/kara_karabottle.png")}a();

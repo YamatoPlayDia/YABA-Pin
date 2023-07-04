@@ -1,0 +1,141 @@
+{
+  "_OBJLoader-c0df76fe.js": {
+    "file": "assets/OBJLoader-c0df76fe.js"
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-0857bc3e.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/css/map.css": {
+    "file": "assets/map-b2c8e4d8.css",
+    "isEntry": true,
+    "src": "resources/css/map.css"
+  },
+  "resources/js/api.js": {
+    "file": "assets/api-03a3d816.js",
+    "imports": [
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/api.js"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-84bd9784.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/js/burned.js": {
+    "file": "assets/burned-7b73ab78.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/burned.js"
+  },
+  "resources/js/create_message.js": {
+    "file": "assets/create_message-d728df5e.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/create_message.js"
+  },
+  "resources/js/create_spot.js": {
+    "file": "assets/create_spot-5f0f2017.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/create_spot.js"
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-ffbdafd3.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/dashboard.js"
+  },
+  "resources/js/functions.js": {
+    "file": "assets/functions-5aea6087.js",
+    "isEntry": true,
+    "src": "resources/js/functions.js"
+  },
+  "resources/js/index.js": {
+    "file": "assets/index-55de4017.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/index.js"
+  },
+  "resources/js/kara_kira.js": {
+    "file": "assets/kara_kira-c765cc88.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/kara_kira.js"
+  },
+  "resources/js/mapConfig.js": {
+    "file": "assets/mapConfig-a03dedb3.js",
+    "isEntry": true,
+    "src": "resources/js/mapConfig.js"
+  },
+  "resources/js/map_read.js": {
+    "file": "assets/map_read-b67ab2a9.js",
+    "imports": [
+      "resources/js/mapConfig.js",
+      "resources/js/functions.js",
+      "resources/js/api.js",
+      "_OBJLoader-c0df76fe.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/map_read.js"
+  },
+  "resources/js/map_throw.js": {
+    "file": "assets/map_throw-bdca389b.js",
+    "imports": [
+      "resources/js/mapConfig.js",
+      "resources/js/functions.js",
+      "resources/js/api.js",
+      "_OBJLoader-c0df76fe.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/map_throw.js"
+  },
+  "resources/js/model.js": {
+    "file": "assets/model-c1eef98a.js",
+    "imports": [
+      "_OBJLoader-c0df76fe.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/model.js"
+  },
+  "resources/js/reading_message.js": {
+    "file": "assets/reading_message-943403d1.js",
+    "imports": [
+      "resources/js/api.js",
+      "resources/js/functions.js"
+    ],
+    "isEntry": true,
+    "src": "resources/js/reading_message.js"
+  },
+  "resources/js/top.js": {
+    "file": "assets/top-9c6f7130.js",
+    "isEntry": true,
+    "src": "resources/js/top.js"
+  },
+  "resources/js/typing.js": {
+    "file": "assets/typing-6cc9ab49.js",
+    "isEntry": true,
+    "src": "resources/js/typing.js"
+  }
+}
