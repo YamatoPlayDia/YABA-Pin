@@ -58,11 +58,11 @@
 
 <body>
 	<ul class="slideshow-fade">
-		<li class="fade" data-delay="4000"><img src="letter.png" alt="throwing1"></li>
-		<li data-delay="2000"><img src="sky.png" alt="throwing2"></li>
-		<li data-delay="3000"><img src="gusha.png" alt="throwing3"></li>
-		<li data-delay="4000"><img src="fire.png" alt="throwing4"></li>
-		<li data-delay="4000"><img src="sky.png" alt="throwing5"></li>
+		<li class="fade" data-delay="4000"><img src="/assets/img/letter.png" alt="burning1"></li>
+		<li data-delay="2000"><img src="/assets/img/sky.png" alt="burning2"></li>
+		<li data-delay="3000"><img src="/assets/img/gusha.png" alt="burning3"></li>
+		<li data-delay="4000"><img src="/assets/img/fire.png" alt="burning4"></li>
+		<li data-delay="4000"><img src="/assets/img/sky.png" alt="burning5"></li>
 	</ul>
 </body>
 
