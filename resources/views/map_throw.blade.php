@@ -17,20 +17,14 @@
 </div>
 {{-- <div id="3d-model" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div> --}}
 <div id="zoom-control">
-    <button id="rotate-right" class="circle-button bg-white">
-        <svg class="h-6 w-6 text-black mx-auto transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-        </svg>
+    <button id="rotate-right" class="circle-button bg-black h-10 w-10">
+        <img src="img/right.png" class="h-10 w-10 mx-auto">
     </button>
-    <button id="rotate-left" class="circle-button bg-white">
-        <svg class="h-6 w-6 text-black mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-        </svg>
+    <button id="rotate-left" class="circle-button bg-black h-10 w-10">
+        <img src="img/left.png" class="h-10 w-10 mx-auto">
     </button>
-    <button id="reload" class="circle-button bg-white">
-        <svg class="h-6 w-6 text-black mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.668 9H15.5l1.528-1.528a4 4 0 0 0-5.646-5.646l-1.714 1.713-1.415-1.415L17.668 9zm-4.5 5.472L11.756 15a4 4 0 1 0 5.648 5.648l1.714-1.714 1.415 1.415-1.715 1.714H6"></path>
-        </svg>
+    <button id="reload" class="circle-button bg-black h-10 w-10">
+        <img src="img/update.png" class="h-10 w-10 mx-auto">
     </button>
 </div>
 <div id="cards-slider" class="flex overflow-x-auto p-4 mb-4 absolute bottom-0 w-full hidden-scrollbar">

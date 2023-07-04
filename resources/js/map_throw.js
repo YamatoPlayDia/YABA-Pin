@@ -92,26 +92,24 @@ async function initMap() {
         map = new Map(document.getElementById("map"), mapOptions(currentPosition, initialHeading));
         // Set a pin on the current location.
 
-        const pin = new PinElement({
-            background: "#db8555",
-            borderColor: "#f8c967",
-            glyphColor: "#f8c967",
-            scale: 2.0,
-        });
-
         let markers = [];
 
-        // そして、各マーカーを作成するときにその配列に追加します：
+        const imageDuckPinElement = document.createElement('img');
+        imageDuckPinElement.src = 'img/duckpin.svg';
+        imageDuckPinElement.style.width = '52px';
+        imageDuckPinElement.style.height = '148px';
+
         const markerView = new AdvancedMarkerElement({
             map,
-            content: pin.element,
+            content: imageDuckPinElement,
             position: currentPosition,
+            zIndex: 999 // この値を他のマーカーよりも大きく設定
         });
 
         markers.push(markerView);
 
         // Create a circle centered at the current position.
-        const circleRadius = 300;
+        const circleRadius = 250;
         let circle = new google.maps.Circle({
             strokeColor: '#db8555',
             strokeOpacity: 0.8,
@@ -257,9 +255,7 @@ async function initMap() {
                     cardsData.sort((a, b) => parseInt(a.distance) - parseInt(b.distance));
                     document.querySelector('#cards-slider').innerHTML = '';
                     const spotsData = await getAll('spots');  // Fetch all spots data once
-                    console.log(spotsData);
                     const messagesData = await getAll('messages');  // Fetch all messages data once
-                    console.log(messagesData);
 
                     for (const cardData of cardsData) {
                         const gmpid = cardData.placeId;
@@ -288,7 +284,7 @@ async function initMap() {
                                 <img src="${cardData.photoURL}" class="w-full h-2/5 object-cover rounded-t-xl scale">
                                 <div class="p-3 scale">
                                     <p class="text-xs text-gray-500">${truncate(cardData.name, 12)} - ${cardData.direction} ${cardData.distance}</p>
-                                    <h2 class="text-base font-semibold">${truncate(cardData.nickname, 12)}</h2>
+                                    <h2 class="text-base text-gray-700 font-semibold">${truncate(cardData.nickname, 12)}</h2>
                                     <p class="text-xs text-gray-400">${cardData.msgCount}件あります</p>
                                 </div>
                                 <button data-place-id="${cardData.placeId}" data-place-lat="${cardData.latitude}" data-place-lng="${cardData.longitude}" style="background-color: ${cardData.isInCircle ? '#1E2082' : '#6A7280'}" class="${cardData.isInCircle ? 'pickup-button' : 'not-pickup-button'} p-3 text-sm text-white rounded-b-xl" ${cardData.isInCircle ? '' : 'disabled'}>ここに秘密をなげる</button>
@@ -326,7 +322,6 @@ async function initMap() {
                                         latitude: latitude,
                                         longitude: longitude,
                                     };
-                                    console.log(newSpotData);
                                     spot = await create('spots', newSpotData);
                                 }
                                 let Data = {
