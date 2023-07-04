@@ -9,7 +9,7 @@
     @vite('resources/css/app.css')
     <style>
         body {
-            background-image: url('assets/img/letter.png');
+            background-image: url('assets/img/sky.png');
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -21,10 +21,10 @@
     <main class="message relative bg-blue-900 bg-opacity-60 flex flex-col min-h-screen w-screen"  style="opacity: 0; transition: opacity 2.5s;">
         {{-- 秘密を見る権利 --}}
         @include('components.bottle')
-        {{-- メッセージ画面 --}}
-        <div class="leading-relaxed text-s text-white py-4 px-8 mx-4 absolute" style="top: 150px;">
+       {{-- メッセージ画面 --}}
+        <div class="leading-relaxed text-s text-white py-12 px-12 mx-auto absolute" style="top: 120px; left: 0; right: 0; margin-left: auto; margin-right: auto; height: 320px; width: 350px; background-image: url('assets/img/letter_25.png'); background-size: cover;">
             <p id="himitsu" data-text=""></p>
-        </div>
+        </div>      
         {{-- ボタン --}}
         <div class="absolute bottom-48 w-full flex justify-center">
             <button id="submit" class="yabapin_btn bg-indigo-900 text-white py-2 px-4 rounded" style="display: none; opacity: 0; transition: opacity 2s;">
