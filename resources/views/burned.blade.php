@@ -26,6 +26,11 @@
             <p id="p1" data-text="秘密は消えてしまいました。"></p>
             <p id="p2" data-text="また新たな秘密を瓶に託しましょう…"></p>
         </div>
+         <div class="fixed bottom-2 right-4 z-50">
+            <a href="{{ route('dashboard') }}" class="inline-block text-blue-300 hover:underline">
+            Click to top
+            </a>
+        </div>
     </main>
     <script>
         @if(Auth::check()) <!-- ユーザーが認証されているかチェック -->

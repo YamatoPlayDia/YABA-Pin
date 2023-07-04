@@ -25,6 +25,14 @@
             <p id="p1" data-text="秘密を瓶に託しました。"></p>
             <p id="p2" data-text="またひとつ、"></p>
             <p id="p3" data-text="あなたは誰かの秘密を知ることになる…"></p>
+             <!-- <p id="p4" data-text="Click to top">
+            <a href="{{ route('dashboard') }}"  class="text-blue-500 font-semibold hover:text-blue-700 hover:underline"></a>
+            </p> -->
+        </div>
+         <div class="fixed bottom-2 right-4 z-50">
+            <a href="{{ route('dashboard') }}" class="inline-block text-blue-800 hover:underline">
+            Click to top
+            </a>
         </div>
     </main>
     {{-- js --}}
