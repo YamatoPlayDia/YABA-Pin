@@ -16,7 +16,7 @@ class FootprintController extends Controller
 
     public function show(Footprint $footprint)
     {
-        return $footprint;
+        return $footprint ? $footprint : null;;
     }
 
     public function store(FootprintRequest $request)

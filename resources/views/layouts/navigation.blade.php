@@ -60,7 +60,6 @@
                     </button>
                 </div>
             </div>
-                @include('components.bottle')
         </div>
     </div>
 
