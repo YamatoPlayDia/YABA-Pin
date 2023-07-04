@@ -6,12 +6,32 @@
     <title>secret bottle</title>
      <!-- CSS only -->
      @vite('resources/css/app.css')
+     <style>
+        body {
+            background-image: url('assets/img/sky.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .introduction_text {
+            margin: 64px 36px 64px 36px;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 160%;
+            color: white;
+        }
+
+     </style>
 </head>
 <body class="flex justify-center">
     <main class="introduction_back">
-        <div>
+        {{-- <div>
             <img src="assets/img/basic.png" alt="ひみつ表紙">
-        </div>
+        </div> --}}
         <div class="introduction_text" >
             <p>
                 誰しも人には話せない秘密や心に秘めた思いがあると思う。<br>
@@ -37,7 +57,7 @@
             </p>
         </div>
     </main>
-    <style>
+    {{-- <style>
         .introduction_back {
             position: relative;
         }    
@@ -51,6 +71,6 @@
             font-size: 12.5px;
             line-height: 2; 
         }
-    </style>
+    </style> --}}
 </body>
 </html>
