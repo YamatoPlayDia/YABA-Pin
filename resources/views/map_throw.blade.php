@@ -33,24 +33,6 @@
     </button>
 </div>
 <div id="cards-slider" class="flex overflow-x-auto p-4 mb-4 absolute bottom-0 w-full hidden-scrollbar">
-    <div class="flex-none w-64 h-48 mr-4 mb-4 bg-white rounded-xl shadow-lg flex flex-col justify-between">
-        <img src="img/type-park.png" class="w-full h-2/5 object-cover rounded-t-xl">
-        <div class="p-3">
-            <p class="text-xs text-gray-500"></p>
-            <h2 class="text-base font-semibold">・・・</h2>
-            <p class="text-xs text-gray-400"></p>
-        </div>
-        <button class="p-3 text-sm bg-gray-500 text-white rounded-b-xl">・・・</button>
-    </div>
-    <div class="flex-none w-64 h-48 mr-4 mb-4 bg-white rounded-xl shadow-lg flex flex-col justify-between">
-        <img src="img/type-park.png" class="w-full h-2/5 object-cover rounded-t-xl">
-        <div class="p-3">
-            <p class="text-xs text-gray-500"></p>
-            <h2 class="text-base font-semibold">・・・</h2>
-            <p class="text-xs text-gray-400"></p>
-        </div>
-        <button class="p-3 text-sm bg-gray-500 text-white rounded-b-xl">・・・</button>
-    </div>
 </div>
 <div id="myModal" class="hidden fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
