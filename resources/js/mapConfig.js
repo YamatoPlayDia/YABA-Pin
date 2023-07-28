@@ -8,7 +8,7 @@ export const mapOptions = (currentPosition, initialHeading) => ({
     disableDefaultUI: true,
     gestureHandling: "none",
     keyboardShortcuts: false,
-    mapId: "418abf20b0e49e59",
+    mapId: "9a7cacbaabe775f",
     draggable: false,
     mapTypeControl: false,
     streetViewControl: false,
